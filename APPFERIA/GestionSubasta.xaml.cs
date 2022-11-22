@@ -172,12 +172,12 @@ namespace interfazGrafica
 
         private void cboIdVenta_Loaded(object sender, RoutedEventArgs e)
         {
-            OracleCommand cmd2 = new OracleCommand("SELECT ID_VENTA FROM VENTA", con);
+            OracleCommand cmd2 = new OracleCommand("SELECT ID_PEDIDO FROM PEDIDO", con);
 
             OracleDataReader rd = cmd2.ExecuteReader();
             while (rd.Read())
             {
-                cboIdVenta.Items.Add(rd["ID_VENTA"].ToString());
+                cboIdVenta.Items.Add(rd["ID_PEDIDO"].ToString());
             }
         }
 
@@ -224,24 +224,18 @@ namespace interfazGrafica
         
         
 
-        private void cboNombreCliente_Loaded(object sender, RoutedEventArgs e)
-            
-        {
-            
+        
 
-            OracleCommand cmd3 = new OracleCommand("", con);
+        private void cboIdVenta_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cboNombreCliente.SelectedValue = "";
+            OracleCommand cmd3 = new OracleCommand("SELECT C.NOMBRES_REGISTRO as NOMBRES_REGISTRO FROM CLIENTE2 C INNER JOIN PEDIDO P ON C.RUT_REGISTRO = P.RUT_CLI WHERE P.ID_PEDIDO = " + "'" + cboIdVenta.SelectedItem + "'", con);
 
             OracleDataReader rw = cmd3.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(rw);
-            var data = (dt as System.ComponentModel.IListSource).GetList();
-
-            cboNombreCliente.ItemsSource = data;
-
-            cboNombreCliente.DisplayMemberPath = dt.Columns["NOMBRES_REGISTRO"].ToString();
-            cboNombreCliente.SelectedValuePath = dt.Columns["ID_VENTA"].ToString();
+            while (rw.Read())
+            {
+                cboNombreCliente.Items.Add(rw["NOMBRES_REGISTRO"].ToString());
+            }
         }
-
-        
     }
 }

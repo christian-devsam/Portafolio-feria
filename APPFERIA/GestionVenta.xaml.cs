@@ -218,7 +218,7 @@ namespace interfazGrafica
 
         private void cboNombreCliente_Loaded(object sender, RoutedEventArgs e)
         {
-            OracleCommand cmd3 = new OracleCommand("SELECT NOMBRES_REGISTRO FROM REGISTRO", con);
+            OracleCommand cmd3 = new OracleCommand("SELECT NOMBRES_REGISTRO FROM CLIENTE2", con);
 
             OracleDataReader rw = cmd3.ExecuteReader();
             while (rw.Read())
@@ -226,5 +226,7 @@ namespace interfazGrafica
                 cboNombreCliente.Items.Add(rw["NOMBRES_REGISTRO"].ToString());
             }
         }
+
+        
     }
 }
