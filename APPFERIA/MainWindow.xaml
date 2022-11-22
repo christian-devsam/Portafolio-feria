@@ -1,0 +1,228 @@
+﻿<Window x:Name="VentanaPrincipal" x:Class="interfazGrafica.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPack="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                      mc:Ignorable="d"
+        Title="Inicio" Height="550" Width="1019.5" 
+                      ResizeMode="NoResize"
+                      WindowStartupLocation="CenterScreen"
+                      Background="Transparent" AllowsTransparency="True" 
+                      MouseDown="Window_MouseDown" WindowStyle="None" >
+
+
+
+    <Border CornerRadius="12">
+        <Border.Background>
+            <ImageBrush ImageSource="/imagenes/LogoFeriaVirtual.png"
+                        Stretch="None"/>
+        </Border.Background>
+
+        <Border CornerRadius="10"                    
+            BorderThickness="2"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#21645d" Offset="0"/>
+                    <GradientStop Color="#76b91e" Offset="0.75"/>
+                    <GradientStop Color="#8A16C1" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="#19523f" Offset="0"/>
+                    <GradientStop Color="#278527" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Inicio"
+                               Foreground="DarkGray"
+                               FontSize="20"
+                               FontFamily="Montserrat"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="10,0,0,0"/>
+                    <Button x:Name="btnMinimize"                           
+                            BorderThickness="0"
+                            Content="-"
+                            Foreground="White"
+                            FontSize="16"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="1"
+                            Click="btnMinimize_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#28AEED"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="btnClose"                          
+                            BorderThickness="0"
+                            Content="X"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="2"
+                            Click="btnClose_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#FFD61C1C"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#C62DAE"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+
+
+                </Grid>
+
+
+
+                <Image HorizontalAlignment="Left" Height="292" Margin="18,214,0,0" VerticalAlignment="Top" Width="337" Source="imagenes/LogoFeriaVirtual1.png" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1"/>
+
+                <Controls:Tile Title="Gestion Clientes"
+                       Click="Clientes_Click"
+                       Margin="18,37,708,321"
+               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
+               Background="Teal"
+               HorizontalTitleAlignment="Right" Height="Auto" Width="Auto" Grid.Row="1">
+                    <Image HorizontalAlignment="Left" Height="87" VerticalAlignment="Top" Width="104" Source="imagenes/user.png"/>
+
+                </Controls:Tile>
+
+                <Controls:Tile Title="Gestion Contratos"
+               Click="Contrato_Click_1"
+               Margin="355,45,354,309"
+               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
+               Background="Gray"
+               HorizontalTitleAlignment="Right" Height="Auto" Width="Auto" Grid.Row="1">
+                    <Image HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="73" Source="imagenes/papel.png"/>
+
+                </Controls:Tile>
+
+                <Controls:Tile Title="Gestion Productores"
+               Click="AdmProductor_click"
+               Margin="693,45,25,309"
+               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
+               Background="Sienna"
+               HorizontalTitleAlignment="Right" Height="Auto" Width="Auto" Grid.Row="1">
+                    <Image HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="73" Source="imagenes/hombre.png"/>
+
+                </Controls:Tile>
+                <Controls:Tile Title="Gestion Subasta"
+               Click="Subasta_click"
+               Margin="693,260,25,86"
+               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
+               Background="MediumPurple"
+               HorizontalTitleAlignment="Right" Height="Auto" Width="Auto" Grid.Row="1">
+                    <Image HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="73" Source="imagenes/subasta1.png"/>
+
+                </Controls:Tile>
+                <Controls:Tile Title="Gestion Venta"
+               Click="Venta_click"
+               Margin="355,260,354,86"
+               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
+               Background="#3b7aaf"
+               HorizontalTitleAlignment="Right" Height="Auto" Width="Auto" Grid.Row="1">
+                    <Image HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="73" Source="imagenes/ventas.png"/>
+
+                </Controls:Tile>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </Grid>
+
+
+
+
+        </Border>
+
+
+
+
+
+    </Border>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</Window>

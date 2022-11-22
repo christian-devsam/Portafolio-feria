@@ -1,0 +1,174 @@
+﻿<Window x:Class="interfazGrafica.GestionProductor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:interfazGrafica"
+        mc:Ignorable="d"
+        Title="FERIA VIRTUAL    -    GESTION PRODUCTORES" Height="438.603" Width="976.155" 
+                      ResizeMode="NoResize"
+                      WindowStartupLocation="CenterScreen"
+                      Background="Transparent" AllowsTransparency="True" 
+                      MouseDown="Window_MouseDown" WindowStyle="None" 
+        
+        
+        >
+    <Border CornerRadius="12">
+        <Border.Background>
+            <ImageBrush ImageSource="/imagenes/LogoFeriaVirtual.png"
+                        Stretch="None"/>
+        </Border.Background>
+        <Border CornerRadius="10"
+                BorderThickness="2"
+                Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#21645d" Offset="0"/>
+                    <GradientStop Color="#76b91e" Offset="0.75"/>
+                    <GradientStop Color="#8A16C1" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="#19523f" Offset="0"/>
+                    <GradientStop Color="#278527" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+
+
+
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Gestion Productor"
+                               Foreground="DarkGray"
+                               FontSize="15"
+                               FontFamily="Montserrat"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="10,0,0,0"/>
+                    <Button x:Name="btnMinimize"                           
+                            BorderThickness="0"
+                            Content="-"
+                            Foreground="White"
+                            FontSize="16"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="1"
+                            Click="btnMinimize_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#28AEED"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="btnClose"                          
+                            BorderThickness="0"
+                            Content="X"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="2"
+                            Click="btnClose_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#FFD61C1C"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#C62DAE"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+
+
+                <Button x:Name="btnGuardarProductor" Content="AGREGAR" HorizontalAlignment="Left" Margin="21,177,0,0" VerticalAlignment="Top" Width="126" Background="#21645d" BorderBrush="White" Click="btnGuardarProductor_Click" Height="34" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
+                <Button x:Name="btnActualizarProductor" Content="Actualizar" HorizontalAlignment="Left" Margin="21,216,0,0" VerticalAlignment="Top" Width="126" BorderBrush="White" Background="#21645d" Click="btnActualizarProductor_Click" Height="35" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
+                <Button x:Name="btnEliminarProductor" Content="Eliminar" HorizontalAlignment="Left" Margin="21,256,0,0" VerticalAlignment="Top" Width="126" Background="#21645d" BorderBrush="White" Click="btnEliminarProductor_Click" Height="35" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
+                <Button x:Name="btnSalirProductor" Content="Volver" HorizontalAlignment="Left" Margin="38,334,0,0" VerticalAlignment="Top" Width="83" BorderBrush="White" Background="White" Click="btnSalirProductor_Click" Height="32" FontSize="15" RenderTransformOrigin="0.459,0.576" Grid.Row="1"/>
+
+
+                <Image HorizontalAlignment="Left" Height="209" Margin="-26,1,0,0" VerticalAlignment="Top" Width="207" Source="imagenes/LogoFeriaVirtual.png" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2"/>
+                <Button x:Name="btnLimpiaProductorr" Content="Limpiar" HorizontalAlignment="Left" Margin="557,334,0,0" VerticalAlignment="Top" Width="91" Click="btnLimpiarProductor_Click" Height="38" Background="#21645d" BorderBrush="White" Foreground="White" Grid.Row="1" FontSize="15"/>
+
+                <Label Content="RUT" HorizontalAlignment="Left" Margin="181,28,0,0" VerticalAlignment="Top" FontSize="18" Height="41" Grid.RowSpan="2"/>
+                <Label Content="Nombres" HorizontalAlignment="Left" Margin="176,47,0,0" VerticalAlignment="Top" FontSize="16" Height="34" Grid.Row="1"/>
+                <Label Content="Apellidos" HorizontalAlignment="Left" Margin="176,96,0,0" VerticalAlignment="Top" FontSize="16" Height="36" Grid.Row="1"/>
+                <Label Content="Direccion" HorizontalAlignment="Left" Margin="175,144,0,0" VerticalAlignment="Top" FontSize="16" Height="36" Grid.Row="1"/>
+                <Label Content="Telefono" HorizontalAlignment="Left" Margin="175,195,0,0" VerticalAlignment="Top" FontSize="16" Height="34" Grid.Row="1"/>
+                <Label Content="Correo Electronico" HorizontalAlignment="Left" Margin="176,243,0,0" VerticalAlignment="Top" FontSize="16" Height="34" Grid.Row="1"/>
+
+                <TextBox x:Name="txtRutProductor" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese RUT" Height="34" Margin="320,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtApellidos" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese apellidos" Height="34" Margin="320,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtNombreProductor" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese nombres" Height="34" Margin="320,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese correo electrónico" Height="34" Margin="320,243,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" RenderTransformOrigin="0.549,0.559" Grid.Row="1"/>
+                <TextBox x:Name="txtDireccion" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese dirección" Height="34" Margin="320,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtTelefono" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese teléfono" Height="34" Margin="320,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+
+                <Separator HorizontalAlignment="Left" Height="19" Margin="469,209,0,0" VerticalAlignment="Top" Width="398" RenderTransformOrigin="0.5,0.5">
+                    <Separator.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="89.974"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Separator.RenderTransform>
+                </Separator>
+                <DataGrid x:Name="dgvListado" HorizontalAlignment="Left" Height="281" VerticalAlignment="Top" Width="275" Margin="687,87,0,0" RenderTransformOrigin="0.5,0.5" SelectionChanged="dgvListado_SelectionChanged" Loaded="dgvListado_Loaded" Grid.Row="1">
+                    <DataGrid.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.56"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </DataGrid.RenderTransform>
+                </DataGrid>
+
+
+            </Grid>
+        </Border>
+    </Border>
+</Window>
