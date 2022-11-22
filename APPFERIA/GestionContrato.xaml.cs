@@ -315,7 +315,7 @@ namespace interfazGrafica
             dt.Load(dr);
             string correo = dt.Rows[0]["CORREO_REGISTRO"].ToString();
             dr.Close();
-
+            //prueba 
             enviarCorreo(correo, txtidContrato.Text, cboNombreCliente.SelectedItem.ToString(), cboNombreProductor.SelectedItem.ToString(), DpickerTermino.Text, txtObservaciones.Text);
         }
     }
