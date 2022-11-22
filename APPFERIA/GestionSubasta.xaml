@@ -131,9 +131,9 @@
 
                 <DataGrid x:Name="dgvListado" HorizontalAlignment="Left" Height="267" VerticalAlignment="Top" Width="520" Margin="10,144,0,0" RenderTransformOrigin="0.5,0.5" SelectionChanged="dgvListado_SelectionChanged" Loaded="dgvListado_Loaded" Grid.Row="1"/>
                 <Button x:Name="btnLimpiaSubasta" Content="Limpiar" HorizontalAlignment="Left" Margin="434,49,0,0" VerticalAlignment="Top" Width="91" Click="btnLimpiarSubastaClick" Height="28" Background="#21645d" BorderBrush="White" Foreground="White" FontSize="13" Grid.Row="1"/>
-                <ComboBox x:Name="cboIdVenta" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155" Margin="157,10,0,0" BorderBrush="#FF1E1E28" Loaded="cboIdVenta_Loaded" Grid.Row="1"  />
+                <ComboBox x:Name="cboIdVenta" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155" Margin="157,10,0,0" BorderBrush="#FF1E1E28" Loaded="cboIdVenta_Loaded" Grid.Row="1" SelectionChanged="cboIdVenta_SelectionChanged"  />
                 <Label Content="Nombre Cliente :&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,39,0,0" FontSize="15" Height="30" Grid.Row="1"/>
-                <ComboBox x:Name="cboNombreCliente" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155" Margin="157,41,0,0" BorderBrush="#FF1E1E28" Grid.Row="1" Loaded="cboNombreCliente_Loaded" />
+                <ComboBox x:Name="cboNombreCliente" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155" Margin="157,41,0,0" BorderBrush="#FF1E1E28" Grid.Row="1" />
                 <Button x:Name="btnVerTransportista" Content="Ver Transportistas" HorizontalAlignment="Left" Margin="373,82,0,0" VerticalAlignment="Top" Width="152" Click="btnVerTransportista_Click" Height="28" Background="#21645d" BorderBrush="White" Foreground="White" FontSize="13" Grid.Row="1"/>
 
 
