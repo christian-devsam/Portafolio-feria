@@ -84,14 +84,17 @@ namespace interfazGrafica
             {
                 case 0:
                     msg = "Cliente agregado";
-                    cmd.Parameters.Add("RUT_REGISTRO", OracleDbType.Varchar2, 20).Value = txtRutCliente.Text;
+                    cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 20).Value = txtRutCliente.Text;
                     cmd.Parameters.Add("ID_TIPOCLIENTE", OracleDbType.Int32, 10).Value = cboTipoCliente.SelectedValue;
-                    cmd.Parameters.Add("NOMBRES_REGISTRO", OracleDbType.Varchar2, 50).Value = txtNombreCliente.Text;
-                    cmd.Parameters.Add("APELLIDO_REGISTRO", OracleDbType.Varchar2, 50).Value = txtApellidoPatCliente.Text;
-                    cmd.Parameters.Add("TELEFONO_REGISTRO", OracleDbType.Int32, 10).Value = int.Parse(txtTelefonoCliente.Text);
-                    cmd.Parameters.Add("DIRECCION_REGISTRO", OracleDbType.Varchar2, 50).Value = txtDireccionCliente.Text;
-                    cmd.Parameters.Add("COMUNA_REGISTRO", OracleDbType.Varchar2, 50).Value = txtComunaCliente.Text;
-                    cmd.Parameters.Add("CORREO_REGISTRO", OracleDbType.Varchar2, 50).Value = txtEmail.Text;
+                    cmd.Parameters.Add("NOMBRE", OracleDbType.Varchar2, 50).Value = txtNombreCliente.Text;
+                    cmd.Parameters.Add("APELLIDO", OracleDbType.Varchar2, 50).Value = txtApellidoPatCliente.Text;
+                    cmd.Parameters.Add("DIRECCION", OracleDbType.Varchar2, 50).Value = txtDireccionCliente.Text;
+                    cmd.Parameters.Add("TELEFONO", OracleDbType.Int32, 10).Value = int.Parse(txtTelefonoCliente.Text);
+                    cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 50).Value = txtEmail.Text;
+                    cmd.Parameters.Add("COMUNA", OracleDbType.Varchar2, 50).Value = txtComunaCliente.Text;
+                    cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 20).Value = txtUsuario.Text;
+                    cmd.Parameters.Add("CONTRASENIA", OracleDbType.Varchar2, 20).Value = txtContrasenia.Text;
+
 
 
                     break;
@@ -99,13 +102,15 @@ namespace interfazGrafica
                     msg = "Cliente modificado!";
 
                     cmd.Parameters.Add("ID_TIPOCLIENTE", OracleDbType.Int32, 10).Value = cboTipoCliente.SelectedValue;
-                    cmd.Parameters.Add("NOMBRES_REGISTRO", OracleDbType.Varchar2, 25).Value = txtNombreCliente.Text;
-                    cmd.Parameters.Add("APELLIDO_REGISTRO", OracleDbType.Varchar2, 50).Value = txtApellidoPatCliente.Text;
-                    cmd.Parameters.Add("TELEFONO_REGISTRO", OracleDbType.Int32, 10).Value = int.Parse(txtTelefonoCliente.Text);
-                    cmd.Parameters.Add("DIRECCION_REGISTRO", OracleDbType.Varchar2, 50).Value = txtDireccionCliente.Text;
-                    cmd.Parameters.Add("COMUNA_REGISTRO", OracleDbType.Varchar2, 50).Value = txtComunaCliente.Text;
-                    cmd.Parameters.Add("CORREO_REGISTRO", OracleDbType.Varchar2, 50).Value = txtEmail.Text;
-                    cmd.Parameters.Add("RUT_REGISTRO", OracleDbType.Varchar2, 50).Value = txtRutCliente.Text;
+                    cmd.Parameters.Add("NOMBRE", OracleDbType.Varchar2, 50).Value = txtNombreCliente.Text;
+                    cmd.Parameters.Add("APELLIDO", OracleDbType.Varchar2, 50).Value = txtApellidoPatCliente.Text;                   
+                    cmd.Parameters.Add("DIRECCION", OracleDbType.Varchar2, 50).Value = txtDireccionCliente.Text;
+                    cmd.Parameters.Add("TELEFONO", OracleDbType.Int32, 10).Value = int.Parse(txtTelefonoCliente.Text);                    
+                    cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 50).Value = txtEmail.Text;
+                    cmd.Parameters.Add("COMUNA", OracleDbType.Varchar2, 50).Value = txtComunaCliente.Text;
+                    cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 20).Value = txtUsuario.Text;
+                    cmd.Parameters.Add("CONTRASENIA", OracleDbType.Varchar2, 20).Value = txtContrasenia.Text;
+                    cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 20).Value = txtRutCliente.Text;
 
 
 
@@ -128,14 +133,14 @@ namespace interfazGrafica
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
     }
-
+        
         private void BtnAgregar_Click(object sender, RoutedEventArgs e)
         {
             try
             {
 
             
-            String sql = "INSERT INTO CLIENTE2 (RUT_REGISTRO, ID_TIPOCLIENTE, NOMBRES_REGISTRO, APELLIDO_REGISTRO, TELEFONO_REGISTRO, DIRECCION_REGISTRO, COMUNA_REGISTRO, CORREO_REGISTRO )" + "VALUES( :RUT_REGISTRO, :ID_TIPOCLIENTE, :NOMBRES_REGISTRO, :APELLIDO_REGISTRO, :TELEFONO_REGISTRO, :DIRECCION_REGISTRO, :COMUNA_REGISTRO, :CORREO_REGISTRO)";
+            String sql = "INSERT INTO CLIENTE (RUT_CLI, ID_TIPOCLIENTE, NOMBRE, APELLIDO, DIRECCION, TELEFONO, CORREO, COMUNA, USUARIO, CONTRASENIA )" + "VALUES( :RUT_CLI, :ID_TIPOCLIENTE, :NOMBRE, :APELLIDO, :DIRECCION, :TELEFONO, :CORREO, :COMUNA, :USUARIO, :CONTRASENIA)";
             this.AUD(sql, 0);
 
             btnAgregar.IsEnabled = false;
@@ -152,20 +157,35 @@ namespace interfazGrafica
 
         private void btnEliminar_Click(object sender, RoutedEventArgs e)
         {
-            String sql = "DELETE FROM REGISTRO " +
-              "WHERE RUT_REGISTRO = :RUT_REGISTRO";
-            this.AUD(sql, 2);
-            this.limpiar();
+            try
+            {
+                String sql = "DELETE FROM CLIENTE " +
+                            "WHERE RUT_CLI = :RUT_CLI";
+                this.AUD(sql, 2);
+                this.limpiar();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
 
         }
 
-       
 
         private void btnModificar_Click(object sender, RoutedEventArgs e)
         {
-            String sql = "UPDATE REGISTRO SET NOMBRES_REGISTRO = :NOMBRES_REGISTRO," + "APELLIDO_REGISTRO =:APELLIDO_REGISTRO, TELEFONO_REGISTRO =:TELEFONO_REGISTRO, DIRECCION_REGISTRO =:DIRECCION_REGISTRO, COMUNA_REGISTRO =:COMUNA_REGISTRO, CORREO_REGISTRO =:CORREO_REGISTRO " + 
-                        "WHERE RUT_REGISTRO = :RUT_REGISTRO";
-            this.AUD(sql, 1);
+            try
+            {
+                String sql = "UPDATE CLIENTE SET ID_TIPOCLIENTE = :ID_TIPOCLIENTE," + "NOMBRE =:NOMBRE, APELLIDO =:APELLIDO, DIRECCION =:DIRECCION, TELEFONO =:TELEFONO, CORREO =:CORREO, COMUNA =:COMUNA, USUARIO =:USUARIO, CONTRASENIA=:CONTRASENIA " +
+                            "WHERE RUT_CLI = :RUT_CLI";
+                this.AUD(sql, 1);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnSalir_Click(object sender, RoutedEventArgs e)
@@ -185,7 +205,7 @@ namespace interfazGrafica
         {
                 OracleCommand cmd = con.CreateCommand();
         
-                cmd.CommandText = "SELECT * FROM REGISTRO";
+                cmd.CommandText = "SELECT * FROM CLIENTE";
                 cmd.CommandType = CommandType.Text;
                 OracleDataReader dr = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
@@ -196,6 +216,7 @@ namespace interfazGrafica
                 //dgvListado.Items.Refresh(); //refrezca la información presentada en la grilla
 
             }
+       
 
         private void dgvListado_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -203,13 +224,17 @@ namespace interfazGrafica
             DataRowView dr = dg.SelectedItem as DataRowView;
             if (dr != null)
             {
-                txtRutCliente.Text = dr["RUT_REGISTRO"].ToString();
-                txtNombreCliente.Text = dr["NOMBRES_REGISTRO"].ToString();
-                txtApellidoPatCliente.Text = dr["APELLIDO_REGISTRO"].ToString();
-                txtDireccionCliente.Text = dr["DIRECCION_REGISTRO"].ToString();
-                txtEmail.Text = dr["CORREO_REGISTRO"].ToString();
-                txtComunaCliente.Text = dr["COMUNA_REGISTRO"].ToString();
-                txtTelefonoCliente.Text = dr["TELEFONO_REGISTRO"].ToString();
+                txtRutCliente.Text = dr["RUT_CLI"].ToString();
+                cboTipoCliente.SelectedItem = dr["ID_TIPOCLIENTE"].ToString();
+                txtNombreCliente.Text = dr["NOMBRE"].ToString();
+                txtApellidoPatCliente.Text = dr["APELLIDO"].ToString();
+                txtDireccionCliente.Text = dr["DIRECCION"].ToString();
+                txtTelefonoCliente.Text = dr["TELEFONO"].ToString();
+                txtEmail.Text = dr["CORREO"].ToString();
+                txtComunaCliente.Text = dr["COMUNA"].ToString();
+                txtUsuario.Text = dr["USUARIO"].ToString();
+                txtContrasenia.Text = dr["CONTRASENIA"].ToString();
+                
 
 
                 btnAgregar.IsEnabled = false;
@@ -290,17 +315,7 @@ namespace interfazGrafica
             OracleCommand cmd1 = new OracleCommand("SELECT ID_TIPOCLIENTE, NOMBRE FROM TIPO_CLIENTE", con);
 
             OracleDataReader re = cmd1.ExecuteReader();
-
-           
         
-            //cbox_alumnos.ItemsSource = ds.Tables["Alumno"].DefaultView;
-            
-            //cbox_alumnos.DisplayMemberPath = ds.Tables["Alumno"].Columns["Matricula_A"].ToString();
-            
-            //cbox_alumnos.SelectedValuePath = ds.Tables["Alumno"].Columns["ID_Alumno"].ToString();
-
-
-
             DataTable dt = new DataTable();
             dt.Load(re);
             var data = (dt as System.ComponentModel.IListSource).GetList();
@@ -310,13 +325,10 @@ namespace interfazGrafica
             cboTipoCliente.DisplayMemberPath = dt.Columns["NOMBRE"].ToString();
             cboTipoCliente.SelectedValuePath = dt.Columns["ID_TIPOCLIENTE"].ToString();
             //cboTipoCliente.ItemsSource = data;
-
-
-
+            //cbox_alumnos.ItemsSource = ds.Tables["Alumno"].DefaultView;
+            //cbox_alumnos.DisplayMemberPath = ds.Tables["Alumno"].Columns["Matricula_A"].ToString();
+            //cbox_alumnos.SelectedValuePath = ds.Tables["Alumno"].Columns["ID_Alumno"].ToString();
         }
-
-        
-
 
     }
 }

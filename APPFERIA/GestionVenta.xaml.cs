@@ -48,9 +48,9 @@ namespace interfazGrafica
             }
 
         }
-        private void AUD(String sql_stmt, int state)
+        private string AUD(String sql_stmt, int state)
         {
-            String msg = "";
+            string msg = "";
             OracleCommand cmd = con.CreateCommand();
             cmd.CommandText = sql_stmt;
             cmd.CommandType = CommandType.Text;
@@ -58,25 +58,34 @@ namespace interfazGrafica
             {
                 case 0:
                     msg = "Venta agregada!";
-                    cmd.Parameters.Add("ID_VENTA", OracleDbType.Int32, 6).Value = int.Parse(txtidventa.Text);
-                    cmd.Parameters.Add("NOMBRE_PRO", OracleDbType.Varchar2, 20).Value = txtnombreProducto.Text;
-                    cmd.Parameters.Add("CANTIDAD_PRO", OracleDbType.Int32, 6).Value = int.Parse(txtcantidadProducto.Text);
-                    cmd.Parameters.Add("ENVIO", OracleDbType.Date).Value = DpickerFinal.SelectedDate;
-                    cmd.Parameters.Add("DESCRIPCION", OracleDbType.Varchar2, 200).Value = txtDescripcion.Text;
+                    cmd.Parameters.Add("ID_PEDIDO", OracleDbType.Int32, 6).Value = int.Parse(txtidventa.Text);
+                    cmd.Parameters.Add("FECHA_INGRESO", OracleDbType.Date).Value = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                    cmd.Parameters.Add("FECHA_ENVIO", OracleDbType.Date).Value = DpickerFinal.SelectedDate;
+                    cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 20).Value = cboNombreCliente.SelectedValue.ToString();
+
+
+                    
 
                     break;
                 case 1:
                     msg = "Venta modificado!";
-                    cmd.Parameters.Add("NOMBRE_PRO", OracleDbType.Varchar2, 20).Value = txtnombreProducto.Text;
+                    cmd.Parameters.Add("NOMBRE_PRO", OracleDbType.Varchar2, 20).Value = cboProductos.Text;
                     cmd.Parameters.Add("CANTIDAD_PRO", OracleDbType.Int32, 6).Value = int.Parse(txtcantidadProducto.Text);
-                    cmd.Parameters.Add("ENVIO", OracleDbType.Date).Value = DpickerFinal.SelectedDate;
-                    cmd.Parameters.Add("DESCRIPCION", OracleDbType.Varchar2, 200).Value = txtDescripcion.Text;                    
+                    cmd.Parameters.Add("ENVIO", OracleDbType.Date).Value = DpickerFinal.SelectedDate;                
                     cmd.Parameters.Add("ID_VENTA", OracleDbType.Int32, 6).Value = int.Parse(txtidventa.Text);
 
                     break;
                 case 2:
                     msg = "Venta eliminado!";
                     cmd.Parameters.Add("ID_VENTA", OracleDbType.Int32, 6).Value = int.Parse(txtidventa.Text);
+
+                    break;
+                case 3:
+                    msg = "Detalle venta agregado!";
+
+                    cmd.Parameters.Add("ID_PEDIDO", OracleDbType.Int32, 6).Value = int.Parse(txtidventa.Text);
+                    cmd.Parameters.Add("ID_PRODUCTO", OracleDbType.Int32, 6).Value = cboProductos.SelectedValue.ToString();
+                    cmd.Parameters.Add("CANTIDAD", OracleDbType.Int32, 6).Value = int.Parse(txtcantidadProducto.Text);
 
                     break;
             }
@@ -86,13 +95,14 @@ namespace interfazGrafica
                 if (n > 0)
                 {
                     MessageBox.Show(msg);
-                    this.listar();
+                    return msg;
                 }
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(ex.Message);
+                return ex.Message.ToString();
             }
         }
 
@@ -102,8 +112,17 @@ namespace interfazGrafica
         {
             try
             {
-                String sql = "INSERT INTO VENTA (ID_VENTA, NOMBRE_PRO, CANTIDAD_PRO, ENVIO, DESCRIPCION )" + "VALUES(:ID_VENTA, :NOMBRE_PRO, :CANTIDAD_PRO, :ENVIO, :DESCRIPCION )";
-                this.AUD(sql, 0);
+                String sql = "INSERT INTO PEDIDO (ID_PEDIDO, FECHA_INGRESO, FECHA_ENVIO, RUT_CLI)" + "VALUES(:ID_PEDIDO, :FECHA_INGRESO, :FECHA_ENVIO, :RUT_CLI )";
+                string mensaje = this.AUD(sql, 0);
+
+                if (mensaje == "Venta agregada!")
+                {
+                    btnCrear.IsEnabled = false;
+                    btnTerminar.IsEnabled = false;
+                    btnActualizar.IsEnabled = false;
+                    btnIngresarDetallePedido.IsEnabled = true;
+                }
+               
             }
             catch (Exception ex)
             {
@@ -140,7 +159,7 @@ namespace interfazGrafica
 
         
 
-        private void listar()
+        /*private void listar()
         {
             OracleCommand cmd = con.CreateCommand();
 
@@ -152,12 +171,12 @@ namespace interfazGrafica
             dgvListado.ItemsSource = dt.DefaultView;
             dr.Close();
 
-        }
+        }*/
 
         private void btnListaVenta_Click(object sender, RoutedEventArgs e)
         {
             limpiar();
-            listar();
+            //listar();
         }
 
         private void btnSalirGestionVenta_Click(object sender, RoutedEventArgs e)
@@ -170,10 +189,9 @@ namespace interfazGrafica
         private void limpiar()
         {
             txtidventa.Text = "";
-            txtnombreProducto.Text = "";
+            cboProductos.Text = "";
             txtcantidadProducto.Text = "";
             DpickerFinal.ToString();
-            txtDescripcion.Text = "";
         }
         private void btnLimpiar_Click(object sender, RoutedEventArgs e)
         {
@@ -187,17 +205,16 @@ namespace interfazGrafica
             if (dr != null)
             {
                 txtidventa.Text = dr["ID_VENTA"].ToString();
-                txtnombreProducto.Text = dr["NOMBRE_PRO"].ToString();
+                cboProductos.Text = dr["NOMBRE_PRO"].ToString();
                 txtcantidadProducto.Text = dr["CANTIDAD_PRO"].ToString();
                 DpickerFinal.SelectedDate = Convert.ToDateTime(dr["ENVIO"]);
-                txtDescripcion.Text = dr["DESCRIPCION"].ToString();
 
             }
         }
 
         private void dgvListado_Loaded(object sender, RoutedEventArgs e)
         {
-            this.listar();
+            //this.listar();
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -218,15 +235,93 @@ namespace interfazGrafica
 
         private void cboNombreCliente_Loaded(object sender, RoutedEventArgs e)
         {
-            OracleCommand cmd3 = new OracleCommand("SELECT NOMBRES_REGISTRO FROM CLIENTE2", con);
+            OracleCommand cmd3 = new OracleCommand("SELECT RUT_CLI, NOMBRE FROM CLIENTE", con);
 
             OracleDataReader rw = cmd3.ExecuteReader();
-            while (rw.Read())
-            {
-                cboNombreCliente.Items.Add(rw["NOMBRES_REGISTRO"].ToString());
-            }
+            DataTable dt = new DataTable();
+            dt.Load(rw);
+            var data = (dt as System.ComponentModel.IListSource).GetList();
+
+            cboNombreCliente.ItemsSource = data;
+
+            cboNombreCliente.DisplayMemberPath = dt.Columns["NOMBRE"].ToString();
+            cboNombreCliente.SelectedValuePath = dt.Columns["RUT_CLI"].ToString();
         }
 
         
+
+        private void BtnAgregarDetalleVenta_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                String sql = "INSERT INTO DETALLE_PEDIDO (ID_PEDIDO,ID_PRODUCTO, CANTIDAD)" + "VALUES(:ID_PEDIDO, :ID_PRODUCTO, :CANTIDAD )";
+                this.AUD(sql, 3);
+
+                btnCrear.IsEnabled = false;
+                btnTerminar.IsEnabled = true;
+                btnActualizar.IsEnabled = true;
+                btnIngresarDetallePedido.IsEnabled = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void cboProductos_loaded(object sender, RoutedEventArgs e)
+        {
+            OracleCommand cmd1 = new OracleCommand("select distinct(rp.id_producto), nombre_producto from producto p join registro_producto rp on p.id_producto= rp.id_producto", con);
+
+            OracleDataReader re = cmd1.ExecuteReader();
+
+            DataTable dt = new DataTable();
+            dt.Load(re);
+            var data = (dt as System.ComponentModel.IListSource).GetList();
+
+            cboProductos.ItemsSource = data;
+            cboProductos.DisplayMemberPath = dt.Columns["NOMBRE_PRODUCTO"].ToString();
+            cboProductos.SelectedValuePath = dt.Columns["ID_PRODUCTO"].ToString();
+        }
+
+        private void txtidventa_Loaded(object sender, RoutedEventArgs e)
+        {
+            OracleCommand cmd1 = new OracleCommand("select max(id_pedido)+1 as id_pedido from pedido", con);
+            OracleDataReader re = cmd1.ExecuteReader();
+
+            DataTable dt = new DataTable();
+            dt.Load(re);
+            txtidventa.Text = dt.Rows[0][0].ToString();
+        }
+
+        public void llenarProductos(int idventa)
+        {
+            OracleCommand cmd = con.CreateCommand();
+
+            cmd.CommandText = "SELECT * FROM detalle_pedido where id_pedido = " + "'"+idventa+"'";
+            cmd.CommandType = CommandType.Text;
+            OracleDataReader dr = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(dr);
+            dgvListado.ItemsSource = dt.DefaultView;
+            dr.Close();
+        }
+
+        private void txtidventa_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int entero = int.Parse(txtidventa.Text);
+                if (txtidventa.Text.Length != 0)
+                {
+                    llenarProductos(int.Parse(txtidventa.Text));
+                }
+            }
+            catch (Exception ex)
+            {
+
+                limpiar();
+            }
+        }
     }
 }

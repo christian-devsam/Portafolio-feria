@@ -59,21 +59,25 @@ namespace interfazGrafica
             {
                 case 0:
                     msg = "Subasta Agregada!";
-                    cmd.Parameters.Add("ID_VENTA", OracleDbType.Int32, 6).Value = cboIdVenta.SelectedItem;
-                    cmd.Parameters.Add("NOMBRE_CLI", OracleDbType.Varchar2, 20).Value = cboNombreCliente.SelectedItem;
-                    cmd.Parameters.Add("TERMINO", OracleDbType.Date).Value = DpickerFinal.SelectedDate;
+                    cmd.Parameters.Add("ID_SUBASTA", OracleDbType.Int32, 6).Value = txtidSubasta.Text;
+                    cmd.Parameters.Add("FECHA_INGRESO", OracleDbType.Date).Value = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                    cmd.Parameters.Add("FECHA_TERMINO", OracleDbType.Date).Value = DpickerFinal.SelectedDate;
+                    cmd.Parameters.Add("ID_PEDIDO", OracleDbType.Int32, 6).Value = Convert.ToInt32(cboIdVenta.SelectedValue);
+                    cmd.Parameters.Add("ID_ESTADO", OracleDbType.Int32, 6).Value = Convert.ToInt32(cboEstado.SelectedValue);
 
                     break;
                 case 1:
                     msg = "Subasta Modificada!";
-                    cmd.Parameters.Add("NOMBRE_CLI", OracleDbType.Varchar2, 20).Value = cboNombreCliente.SelectedItem;
-                    cmd.Parameters.Add("TERMINO", OracleDbType.Date).Value = DpickerFinal.SelectedDate;
-                    cmd.Parameters.Add("ID_VENTA", OracleDbType.Int32, 6).Value = cboIdVenta.SelectedItem;
+                    
+                    cmd.Parameters.Add("FECHA_TERMINO", OracleDbType.Date).Value = DpickerFinal.SelectedDate;
+                    cmd.Parameters.Add("ID_PEDIDO", OracleDbType.Int32, 6).Value = cboIdVenta.SelectedItem;
+                    cmd.Parameters.Add("ID_ESTADO", OracleDbType.Int32, 6).Value = cboEstado.SelectedItem;
+                    cmd.Parameters.Add("ID_SUBASTA", OracleDbType.Int32, 6).Value = txtidSubasta.Text;
 
                     break;
                 case 2:
                     msg = "Subasta Eliminada!";
-                    cmd.Parameters.Add("ID_VENTA", OracleDbType.Int32, 6).Value = cboIdVenta.SelectedItem;
+                    cmd.Parameters.Add("ID_SUBASTA", OracleDbType.Int32, 6).Value = txtidSubasta.Text;
 
                     break;
             }
@@ -97,7 +101,7 @@ namespace interfazGrafica
         {
             try
             {
-                String sql = "INSERT INTO PUJANZA (ID_VENTA, NOMBRE_CLI, TERMINO )" + " VALUES(:ID_VENTA, :NOMBRE_CLI, :TERMINO )";
+                String sql = "INSERT INTO SUBASTA (ID_SUBASTA, FECHA_INGRESO,FECHA_TERMINO, ID_PEDIDO, ID_ESTADO )" + " VALUES(:ID_SUBASTA, :FECHA_INGRESO, :FECHA_TERMINO, :ID_PEDIDO, :ID_ESTADO )";
                 this.AUD(sql, 0);
             }
             catch (Exception ex)
@@ -110,7 +114,7 @@ namespace interfazGrafica
         {
             try
             {
-                String sql = "UPDATE PUJANZA SET NOMBRE_CLI = :NOMBRE_CLI, TERMINO = :TERMINO " + "WHERE ID_VENTA = :ID_VENTA";
+                String sql = "UPDATE SUBASTA SET FECHA_TERMINO = :FECHA_TERMINO, ID_PEDIDO = :ID_PEDIDO, ID_ESTADO = :ID_ESTADO " + "WHERE ID_SUBASTA = :ID_SUBASTA";
                 this.AUD(sql, 1);
             }
             catch (Exception ex)
@@ -123,7 +127,8 @@ namespace interfazGrafica
         {
             try
             {
-                String sql = "DETELE FROM PUJANZA " + "WHERE ID_VENTA = :ID_VENTA";
+                String sql = "DELETE FROM SUBASTA " +
+                            "WHERE ID_SUBASTA = :ID_SUBASTA";
                 this.AUD(sql, 2);
                 this.limpiar();
             }
@@ -148,9 +153,11 @@ namespace interfazGrafica
         }
         private void limpiar()
         {
+            txtidSubasta.Text = "";
+            DpickerFinal.SelectedDate.ToString();
             cboIdVenta.SelectedValue = "";
-            cboNombreCliente.SelectedValue = "";
-            DpickerFinal.ToString();
+            cboEstado.SelectedValue = "";
+            
 
         }
 
@@ -158,7 +165,7 @@ namespace interfazGrafica
         {
             OracleCommand cmd = con.CreateCommand();
 
-            cmd.CommandText = "SELECT * FROM PUJANZA";
+            cmd.CommandText = "SELECT * FROM SUBASTA";
             cmd.CommandType = CommandType.Text;
             OracleDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
@@ -187,9 +194,10 @@ namespace interfazGrafica
             DataRowView dr = dg.SelectedItem as DataRowView;
             if (dr != null)
             {
-                cboIdVenta.SelectedValue = dr["ID_VENTA"].ToString();
-                cboNombreCliente.SelectedValue = dr["NOMBRE_CLI"].ToString();
-                DpickerFinal.SelectedDate = Convert.ToDateTime(dr["TERMINO"]);
+                txtidSubasta.Text = dr["ID_SUBASTA"].ToString();
+                cboIdVenta.SelectedValue = dr["ID_PEDIDO"].ToString();
+                cboEstado.SelectedValue = dr["ID_ESTADO"].ToString();
+                DpickerFinal.SelectedDate = Convert.ToDateTime(dr["FECHA_TERMINO"]);
             }
         }
 
@@ -216,26 +224,29 @@ namespace interfazGrafica
 
         private void btnVerTransportista_Click(object sender, RoutedEventArgs e)
         {
-            VisualizarTransportista v1 = new VisualizarTransportista();
+            VisualizarPujas v1 = new VisualizarPujas();
             this.Close();
             v1.ShowDialog();
         }
 
         
-        
 
-        
-
-        private void cboIdVenta_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboEstado_Loaded(object sender, RoutedEventArgs e)
         {
-            cboNombreCliente.SelectedValue = "";
-            OracleCommand cmd3 = new OracleCommand("SELECT C.NOMBRES_REGISTRO as NOMBRES_REGISTRO FROM CLIENTE2 C INNER JOIN PEDIDO P ON C.RUT_REGISTRO = P.RUT_CLI WHERE P.ID_PEDIDO = " + "'" + cboIdVenta.SelectedItem + "'", con);
+            OracleCommand cmd1 = new OracleCommand("SELECT ID_ESTADO, DESCRIPCION FROM ESTADO_SUBASTA", con);
 
-            OracleDataReader rw = cmd3.ExecuteReader();
-            while (rw.Read())
-            {
-                cboNombreCliente.Items.Add(rw["NOMBRES_REGISTRO"].ToString());
-            }
+            OracleDataReader re = cmd1.ExecuteReader();
+
+            DataTable dt = new DataTable();
+            dt.Load(re);
+            var data = (dt as System.ComponentModel.IListSource).GetList();
+
+            cboEstado.ItemsSource = data;
+
+            cboEstado.DisplayMemberPath = dt.Columns["DESCRIPCION"].ToString();
+            cboEstado.SelectedValuePath = dt.Columns["ID_ESTADO"].ToString();
         }
+
+        
     }
 }
