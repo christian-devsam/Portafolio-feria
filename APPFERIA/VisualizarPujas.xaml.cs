@@ -11,21 +11,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
 using System.Data;
+using System.Configuration;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
-using System.Configuration;
 
 namespace interfazGrafica
 {
     /// <summary>
-    /// Lógica de interacción para VisualizarTransportista.xaml
+    /// Lógica de interacción para VisualizarPujas.xaml
     /// </summary>
-    public partial class VisualizarTransportista //: Window
+    public partial class VisualizarPujas : Window
     {
 
         OracleConnection con = null;
-        public VisualizarTransportista()
+        public VisualizarPujas()
         {
             abrirConexion();
             InitializeComponent();
@@ -48,15 +49,30 @@ namespace interfazGrafica
 
         private void listar()
         {
+            try
+            {
+
+            
             OracleCommand cmd = con.CreateCommand();
 
-            cmd.CommandText = "SELECT ID_TRANSPORTISTA, NOMBRE, APELLIDO, TELEFONO, LICENCIA_CONDUCIR FROM TRANSPORTISTA";
+            cmd.CommandText = "select p.ID_SUBASTA, t.NOMBRE, p.VALOR from puja p join transportista t on p.id_transportista = t.id_transportista";
             cmd.CommandType = CommandType.Text;
             OracleDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Load(dr);
-            dgvListado.ItemsSource = dt.DefaultView;
+
+            var data = (dt as System.ComponentModel.IListSource).GetList();
+
+            dgvListado.ItemsSource = data;
+
+            
             dr.Close();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
         }
 
 

@@ -307,15 +307,15 @@ namespace interfazGrafica
         private void btnenviarCorreo_Click(object sender, RoutedEventArgs e)
         {
             OracleCommand cmd = con.CreateCommand();
-
-            cmd.CommandText = "SELECT * FROM REGISTRO WHERE RUT_REGISTRO = "+ "'"+ cboNombreCliente.SelectedItem +"'";
+            
+            cmd.CommandText = "SELECT * FROM REGISTRO WHERE RUT_REGISTRO = "+ "'"+ cboNombreCliente.SelectedItem +"'"; //query
             cmd.CommandType = CommandType.Text;
             OracleDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Load(dr);
             string correo = dt.Rows[0]["CORREO_REGISTRO"].ToString();
             dr.Close();
-            //prueba 
+            //corremos el metodo 
             enviarCorreo(correo, txtidContrato.Text, cboNombreCliente.SelectedItem.ToString(), cboNombreProductor.SelectedItem.ToString(), DpickerTermino.Text, txtObservaciones.Text);
         }
     }
