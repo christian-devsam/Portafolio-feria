@@ -91,6 +91,13 @@ namespace interfazGrafica
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }
+
+        private void cerrarSesion_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            this.Close();
+            main.ShowDialog();
+        }
     }
 }
 

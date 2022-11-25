@@ -120,7 +120,6 @@
 
                 <Button x:Name="btnCrear" Content="Crear" HorizontalAlignment="Left" Margin="581,213,0,0" VerticalAlignment="Top" Width="126" Background="#21645d" BorderBrush="White" Click="BtnAgregarSubasta_Click" Height="34" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1" />
                 <Button x:Name="btnActualizar" Content="Actualizar" HorizontalAlignment="Left" Margin="581,252,0,0" VerticalAlignment="Top" Width="126" BorderBrush="White" Background="#21645d" Click="btnActualizarSubasta_Click" Height="35" FontSize="15" BorderThickness="2" FontWeight="Bold" Foreground="White" Grid.Row="1"/>
-                <Button x:Name="btnTerminar" Content="Eliminar" HorizontalAlignment="Left" Margin="581,292,0,0" VerticalAlignment="Top" Width="126" Background="#21645d" BorderBrush="White" Click="btnTerminarSubasta_Click" Height="35" FontSize="15" BorderThickness="2" FontWeight="Bold" Foreground="White" Grid.Row="1"/>
                 <Button x:Name="btnSalir" Content="VOLVER" HorizontalAlignment="Left" Margin="596,359,0,0" VerticalAlignment="Top" Width="92" BorderBrush="White" Background="White" Click="btnSalirGestionSubasta_Click" Height="32" FontSize="15" Grid.Row="1"/>
 
                 <Image HorizontalAlignment="Left" Height="224" Margin="530,19,-17,0" VerticalAlignment="Top" Width="231" Source="imagenes/LogoFeriaVirtual.png" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2"/>

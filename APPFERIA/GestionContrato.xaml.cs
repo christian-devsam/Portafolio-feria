@@ -308,12 +308,12 @@ namespace interfazGrafica
         {
             OracleCommand cmd = con.CreateCommand();
             
-            cmd.CommandText = "SELECT * FROM REGISTRO WHERE RUT_REGISTRO = "+ "'"+ cboNombreCliente.SelectedItem +"'"; //query
+            cmd.CommandText = "SELECT * FROM CLIENTE WHERE RUT_CLI = "+ "'"+ cboNombreCliente.SelectedItem +"'"; //query
             cmd.CommandType = CommandType.Text;
             OracleDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Load(dr);
-            string correo = dt.Rows[0]["CORREO_REGISTRO"].ToString();
+            string correo = dt.Rows[0]["CORREO"].ToString();
             dr.Close();
             //corremos el metodo 
             enviarCorreo(correo, txtidContrato.Text, cboNombreCliente.SelectedItem.ToString(), cboNombreProductor.SelectedItem.ToString(), DpickerTermino.Text, txtObservaciones.Text);

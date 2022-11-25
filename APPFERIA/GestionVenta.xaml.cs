@@ -17,6 +17,14 @@ using System.Configuration;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 
+
+using System.Net.Mail;
+using System.Web.Configuration;
+using System.Net.Configuration;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
+
 namespace interfazGrafica
 {
     /// <summary>
@@ -95,8 +103,9 @@ namespace interfazGrafica
                 if (n > 0)
                 {
                     MessageBox.Show(msg);
-                    return msg;
+                   
                 }
+                return msg;
             }
             catch (Exception ex)
             {
@@ -117,11 +126,17 @@ namespace interfazGrafica
 
                 if (mensaje == "Venta agregada!")
                 {
+
+                    
                     btnCrear.IsEnabled = false;
                     btnTerminar.IsEnabled = false;
                     btnActualizar.IsEnabled = false;
                     btnIngresarDetallePedido.IsEnabled = true;
                 }
+
+
+
+
                
             }
             catch (Exception ex)
@@ -135,7 +150,7 @@ namespace interfazGrafica
             try
             {
                 String sql = "UPDATE VENTA SET NOMBRE_PRO = :NOMBRE_PRO," + "CANTIDAD_PRO = :CANTIDAD_PRO, ENVIO = :ENVIO, DESCRIPCION = :DESCRIPCION " + "WHERE ID_VENTA = :ID_VENTA";
-                this.AUD(sql, 1);
+                string respueta = this.AUD(sql, 1);
             }
             catch (Exception ex)
             {
@@ -148,7 +163,7 @@ namespace interfazGrafica
             try
             {
                 String sql = "DELETE FROM VENTA " + "WHERE ID_VENTA = :ID_VENTA";
-                this.AUD(sql, 2);
+                string respuesta = this.AUD(sql, 2);
                 this.limpiar();
             }
             catch (Exception ex)
@@ -159,11 +174,11 @@ namespace interfazGrafica
 
         
 
-        /*private void listar()
+        public void listar()
         {
             OracleCommand cmd = con.CreateCommand();
 
-            cmd.CommandText = "SELECT * FROM VENTA";
+            cmd.CommandText = "SELECT p.id_pedido, c.nombre, pr.nombre_producto, dp.cantidad, p.fecha_envio FROM PRODUCTO PR INNER JOIN DETALLE_PEDIDO DP ON DP.ID_PRODUCTO=PR.ID_PRODUCTO INNER JOIN PEDIDO P ON P.ID_PEDIDO = dp.id_pedido INNER JOIN CLIENTE C ON C.RUT_CLI=P.RUT_CLI";
             cmd.CommandType = CommandType.Text;
             OracleDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
@@ -171,12 +186,12 @@ namespace interfazGrafica
             dgvListado.ItemsSource = dt.DefaultView;
             dr.Close();
 
-        }*/
+        }
 
         private void btnListaVenta_Click(object sender, RoutedEventArgs e)
         {
             limpiar();
-            //listar();
+            listar();
         }
 
         private void btnSalirGestionVenta_Click(object sender, RoutedEventArgs e)
@@ -204,17 +219,18 @@ namespace interfazGrafica
             DataRowView dr = dg.SelectedItem as DataRowView;
             if (dr != null)
             {
-                txtidventa.Text = dr["ID_VENTA"].ToString();
+                txtidventa.Text = dr["ID_PEDIDO"].ToString();
+                cboNombreCliente.SelectedValue = dr["RUT_CLI"].ToString();
                 cboProductos.Text = dr["NOMBRE_PRO"].ToString();
                 txtcantidadProducto.Text = dr["CANTIDAD_PRO"].ToString();
-                DpickerFinal.SelectedDate = Convert.ToDateTime(dr["ENVIO"]);
+                DpickerFinal.SelectedDate = Convert.ToDateTime(dr["FECHA_ENVIO"]);
 
             }
         }
 
         private void dgvListado_Loaded(object sender, RoutedEventArgs e)
         {
-            //this.listar();
+            this.listar();
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -255,12 +271,12 @@ namespace interfazGrafica
             try
             {
                 String sql = "INSERT INTO DETALLE_PEDIDO (ID_PEDIDO,ID_PRODUCTO, CANTIDAD)" + "VALUES(:ID_PEDIDO, :ID_PRODUCTO, :CANTIDAD )";
-                this.AUD(sql, 3);
+                string respuesta = this.AUD(sql, 3);
 
                 btnCrear.IsEnabled = false;
-                btnTerminar.IsEnabled = true;
-                btnActualizar.IsEnabled = true;
-                btnIngresarDetallePedido.IsEnabled = false;
+                btnTerminar.IsEnabled = false;
+                btnActualizar.IsEnabled = false;
+                btnIngresarDetallePedido.IsEnabled = true;
 
             }
             catch (Exception ex)
@@ -323,5 +339,76 @@ namespace interfazGrafica
                 limpiar();
             }
         }
+        private void enviarCorreo(string to, string idventa, string nombrecli, string html, string canpro, string envio)
+        {
+
+            System.Net.Mail.MailMessage correo = new System.Net.Mail.MailMessage();
+            correo.From = new System.Net.Mail.MailAddress("feriavirtualmg1@gmail.com", "Maipo Grande", System.Text.Encoding.UTF8);//Correo de salida
+            correo.To.Add(to); //Correo destino?
+            correo.Subject = "Boleta Cliente Feria Virtual"; //Asunto
+            correo.Body = "Codigo de la Venta : " + idventa + "  Nombre del cliente : " + nombrecli + " " + html + " " + canpro + " Fecha de Envio : " + envio ; //Mensaje del correo
+            correo.IsBodyHtml = true;
+            correo.Priority = MailPriority.Normal;
+            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
+            smtp.UseDefaultCredentials = false;
+            smtp.Host = "smtp.gmail.com"; //Host del servidor de correo
+            smtp.Port = 25; //Puerto de salida
+            smtp.Credentials = new System.Net.NetworkCredential("feriavirtualmg1@gmail.com", "hantmgmsgkvsljkm");//Cuenta de correo
+            ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
+            smtp.EnableSsl = true;//True si el servidor de correo permite ssl
+
+            try
+            {
+                smtp.Send(correo);
+                MessageBox.Show("Correo enviado exitosamente");
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btn_ClickEnviarCorreo(object sender, RoutedEventArgs e)
+        {
+            OracleCommand cmd = con.CreateCommand();
+
+            cmd.CommandText = "SELECT * FROM CLIENTE WHERE RUT_CLI = " + "'" + cboNombreCliente.SelectedValue + "'"; //query
+            cmd.CommandType = CommandType.Text;
+            OracleDataReader dr = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(dr);
+            string correo = dt.Rows[0]["CORREO"].ToString();
+            dr.Close();
+
+            OracleCommand cmd2 = con.CreateCommand();
+
+            cmd2.CommandText = "SELECT * FROM detalle_pedido d inner join pedido pe on pe.id_pedido = d.id_pedido inner join producto p on p.id_producto = d.id_producto where pe.id_pedido =" + "'" + txtidventa.Text + "'";
+            cmd2.CommandType = CommandType.Text;
+            OracleDataReader dr2 = cmd2.ExecuteReader();
+            DataTable dt2 = new DataTable();
+            dt2.Load(dr2);
+
+            string html = "";
+
+            html += "<table style='border: white 5px solid; width:500px'>";
+            html += "<thead><tr><td>Cantidad</td><td>Nombre Producto</td><td>Valor</td></tr></thead>";
+            html += "<tbody>";
+            for (int i = 0; i < dt2.Rows.Count; i++)
+            {
+                html += "<tr style='border: white 5px solid;'><td>" + dt2.Rows[i]["CANTIDAD"].ToString() + "</td>";
+                 html += "<td>" + dt2.Rows[i]["NOMBRE_PRODUCTO"].ToString() + "</td><td>" + dt2.Rows[i]["VALOR"].ToString() + "</td></tr>";
+            }
+            html += "</tbody>";
+            html += "</table>";
+
+
+            //metodo enviar correo
+            enviarCorreo(correo, txtidventa.Text, cboNombreCliente.Text, html, txtcantidadProducto.Text, dt2.Rows[0]["FECHA_ENVIO"].ToString());
+            
+        }
+
+
+
     }
 }

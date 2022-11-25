@@ -84,6 +84,7 @@ namespace interfazGrafica
             {
                 case 0:
                     msg = "Cliente agregado";
+                    
                     cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 20).Value = txtRutCliente.Text;
                     cmd.Parameters.Add("ID_TIPOCLIENTE", OracleDbType.Int32, 10).Value = cboTipoCliente.SelectedValue;
                     cmd.Parameters.Add("NOMBRE", OracleDbType.Varchar2, 50).Value = txtNombreCliente.Text;
@@ -91,10 +92,10 @@ namespace interfazGrafica
                     cmd.Parameters.Add("DIRECCION", OracleDbType.Varchar2, 50).Value = txtDireccionCliente.Text;
                     cmd.Parameters.Add("TELEFONO", OracleDbType.Int32, 10).Value = int.Parse(txtTelefonoCliente.Text);
                     cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 50).Value = txtEmail.Text;
-                    cmd.Parameters.Add("COMUNA", OracleDbType.Varchar2, 50).Value = txtComunaCliente.Text;
+                    cmd.Parameters.Add("COMUNA", OracleDbType.Varchar2, 50).Value = cboComuna.SelectedValue;
                     cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 20).Value = txtUsuario.Text;
                     cmd.Parameters.Add("CONTRASENIA", OracleDbType.Varchar2, 20).Value = txtContrasenia.Text;
-
+                    cmd.Parameters.Add("ID_CLIENTE", OracleDbType.Int32, 20).Value = int.Parse(txtidCliente.Text);
 
 
                     break;
@@ -107,18 +108,19 @@ namespace interfazGrafica
                     cmd.Parameters.Add("DIRECCION", OracleDbType.Varchar2, 50).Value = txtDireccionCliente.Text;
                     cmd.Parameters.Add("TELEFONO", OracleDbType.Int32, 10).Value = int.Parse(txtTelefonoCliente.Text);                    
                     cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 50).Value = txtEmail.Text;
-                    cmd.Parameters.Add("COMUNA", OracleDbType.Varchar2, 50).Value = txtComunaCliente.Text;
+                    cmd.Parameters.Add("COMUNA", OracleDbType.Varchar2, 50).Value = cboComuna.SelectedValue;
                     cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 20).Value = txtUsuario.Text;
                     cmd.Parameters.Add("CONTRASENIA", OracleDbType.Varchar2, 20).Value = txtContrasenia.Text;
+                    cmd.Parameters.Add("ID_CLIENTE", OracleDbType.Int32, 20).Value = int.Parse(txtidCliente.Text);
                     cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 20).Value = txtRutCliente.Text;
-
+                    
 
 
                     break;
                 case 2:
                     msg = "Cliente Eliminado!";
 
-                    cmd.Parameters.Add("RUT_REGISTRO", OracleDbType.Varchar2, 50).Value = txtRutCliente.Text;
+                    cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 50).Value = txtRutCliente.Text;
 
                     break;
             }
@@ -140,7 +142,7 @@ namespace interfazGrafica
             {
 
             
-            String sql = "INSERT INTO CLIENTE (RUT_CLI, ID_TIPOCLIENTE, NOMBRE, APELLIDO, DIRECCION, TELEFONO, CORREO, COMUNA, USUARIO, CONTRASENIA )" + "VALUES( :RUT_CLI, :ID_TIPOCLIENTE, :NOMBRE, :APELLIDO, :DIRECCION, :TELEFONO, :CORREO, :COMUNA, :USUARIO, :CONTRASENIA)";
+            String sql = "INSERT INTO CLIENTE (RUT_CLI, ID_TIPOCLIENTE, NOMBRE, APELLIDO, DIRECCION, TELEFONO, CORREO, COMUNA, USUARIO, CONTRASENIA, ID_CLIENTE )" + "VALUES( :RUT_CLI, :ID_TIPOCLIENTE, :NOMBRE, :APELLIDO, :DIRECCION, :TELEFONO, :CORREO, :COMUNA, :USUARIO, :CONTRASENIA, :ID_CLIENTE)";
             this.AUD(sql, 0);
 
             btnAgregar.IsEnabled = false;
@@ -177,7 +179,7 @@ namespace interfazGrafica
         {
             try
             {
-                String sql = "UPDATE CLIENTE SET ID_TIPOCLIENTE = :ID_TIPOCLIENTE," + "NOMBRE =:NOMBRE, APELLIDO =:APELLIDO, DIRECCION =:DIRECCION, TELEFONO =:TELEFONO, CORREO =:CORREO, COMUNA =:COMUNA, USUARIO =:USUARIO, CONTRASENIA=:CONTRASENIA " +
+                String sql = "UPDATE CLIENTE SET ID_TIPOCLIENTE = :ID_TIPOCLIENTE," + "NOMBRE =:NOMBRE, APELLIDO =:APELLIDO, DIRECCION =:DIRECCION, TELEFONO =:TELEFONO, CORREO =:CORREO, COMUNA =:COMUNA, USUARIO =:USUARIO, CONTRASENIA=:CONTRASENIA, ID_CLIENTE=:ID_CLIENTE " +
                             "WHERE RUT_CLI = :RUT_CLI";
                 this.AUD(sql, 1);
             }
@@ -205,7 +207,7 @@ namespace interfazGrafica
         {
                 OracleCommand cmd = con.CreateCommand();
         
-                cmd.CommandText = "SELECT * FROM CLIENTE";
+                cmd.CommandText = "SELECT * FROM CLIENTE ";
                 cmd.CommandType = CommandType.Text;
                 OracleDataReader dr = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
@@ -224,14 +226,15 @@ namespace interfazGrafica
             DataRowView dr = dg.SelectedItem as DataRowView;
             if (dr != null)
             {
+                txtidCliente.Text = dr["ID_CLIENTE"].ToString();
                 txtRutCliente.Text = dr["RUT_CLI"].ToString();
-                cboTipoCliente.SelectedItem = dr["ID_TIPOCLIENTE"].ToString();
+                cboTipoCliente.SelectedValue = dr["ID_TIPOCLIENTE"].ToString();
                 txtNombreCliente.Text = dr["NOMBRE"].ToString();
                 txtApellidoPatCliente.Text = dr["APELLIDO"].ToString();
                 txtDireccionCliente.Text = dr["DIRECCION"].ToString();
                 txtTelefonoCliente.Text = dr["TELEFONO"].ToString();
                 txtEmail.Text = dr["CORREO"].ToString();
-                txtComunaCliente.Text = dr["COMUNA"].ToString();
+                cboComuna.Text = dr["COMUNA"].ToString();
                 txtUsuario.Text = dr["USUARIO"].ToString();
                 txtContrasenia.Text = dr["CONTRASENIA"].ToString();
                 
@@ -250,12 +253,13 @@ namespace interfazGrafica
         }
         private void limpiar()
         {
+            txtidCliente.Text = "";
             txtRutCliente.Text = "";
             txtNombreCliente.Text = "";
             txtApellidoPatCliente.Text = "";
             txtTelefonoCliente.Text = "";
             txtDireccionCliente.Text = "";
-            txtComunaCliente.Text = "";
+            cboComuna.Text = "";
             txtEmail.Text = "";
 
             btnAgregar.IsEnabled = true;
@@ -330,6 +334,74 @@ namespace interfazGrafica
             //cbox_alumnos.SelectedValuePath = ds.Tables["Alumno"].Columns["ID_Alumno"].ToString();
         }
 
+        private void cboregion_Loaded(object sender, RoutedEventArgs e)
+        {
+            cargarRegion();
+        }
+
+         public void cargarRegion()
+        {
+            OracleCommand cmd1 = new OracleCommand("SELECT * from region", con);
+            OracleDataReader re = cmd1.ExecuteReader();
+
+            DataTable dt = new DataTable();
+            dt.Load(re);
+            var data = (dt as System.ComponentModel.IListSource).GetList();
+
+            cboregion.ItemsSource = data;
+
+            cboregion.DisplayMemberPath = dt.Columns["REGION"].ToString();
+            cboregion.SelectedValuePath = dt.Columns["REGION_ID"].ToString();
+        }
+
+        public void cargarProvincia()
+        {
+            OracleCommand cmd2 = new OracleCommand("SELECT * from PROVINCIA where region_id ="+ "'"+cboregion.SelectedValue+"'", con);
+            OracleDataReader rd = cmd2.ExecuteReader();
+
+            DataTable dt = new DataTable();
+            dt.Load(rd);
+            var data = (dt as System.ComponentModel.IListSource).GetList();
+
+            cboprovincia.ItemsSource = data;
+
+            cboprovincia.DisplayMemberPath = dt.Columns["PROVINCIA"].ToString();
+            cboprovincia.SelectedValuePath = dt.Columns["PROVINCIA_ID"].ToString();
+        }
+        public void cargarComuna()
+        {
+            OracleCommand cmd2 = new OracleCommand("SELECT * from COMUNA where provincia_id =" + "'" + cboprovincia.SelectedValue + "'", con);
+            OracleDataReader red = cmd2.ExecuteReader();
+
+            DataTable dt = new DataTable();
+            dt.Load(red);
+            var data = (dt as System.ComponentModel.IListSource).GetList();
+
+            cboComuna.ItemsSource = data;
+
+            cboComuna.DisplayMemberPath = dt.Columns["COMUNA"].ToString();
+            cboComuna.SelectedValuePath = dt.Columns["ID_COMUNA"].ToString();
+        }
+
+        private void cboregion_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cargarProvincia();
+        }
+
+        private void cboprovincia_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cargarComuna();
+        }
+
+        private void txtidCliente_Loaded(object sender, RoutedEventArgs e)
+        {
+            OracleCommand cmd1 = new OracleCommand("select max(ID_CLIENTE)+1 as ID_CLIENTE from CLIENTE", con);
+            OracleDataReader re = cmd1.ExecuteReader();
+
+            DataTable dt = new DataTable();
+            dt.Load(re);
+            txtidCliente.Text = dt.Rows[0][0].ToString();
+        }
     }
 }
 

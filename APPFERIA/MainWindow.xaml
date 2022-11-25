@@ -125,35 +125,46 @@
 
 
 
-                <Image HorizontalAlignment="Left" Height="292" Margin="18,214,0,0" VerticalAlignment="Top" Width="337" Source="imagenes/LogoFeriaVirtual1.png" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1"/>
 
                 <Controls:Tile Title="Gestion Clientes"
                        Click="Clientes_Click"
-                       Margin="18,37,708,321"
+                       Margin="18,45,708,294"
                Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
                Background="Teal"
                HorizontalTitleAlignment="Right" Height="Auto" Width="Auto" Grid.Row="1">
-                    <Image HorizontalAlignment="Left" Height="87" VerticalAlignment="Top" Width="104" Source="imagenes/user.png"/>
+                    <Image HorizontalAlignment="Left" Height="87" VerticalAlignment="Top" Width="104" Source="imagenes/usuario.png"/>
 
                 </Controls:Tile>
 
+                <Controls:Tile Title="Gestion Transportista"
+                       Click="Clientes_Click"
+                       Margin="701,49,25,294"
+               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
+               Background="IndianRed"
+               HorizontalTitleAlignment="Right" Height="Auto" Width="Auto" Grid.Row="1">
+                    <Image HorizontalAlignment="Left" Height="87" VerticalAlignment="Top" Width="104" Source="imagenes/camion1.png"/>
+
+                </Controls:Tile>
+
+
+
                 <Controls:Tile Title="Gestion Contratos"
                Click="Contrato_Click_1"
-               Margin="355,45,354,309"
+               Margin="355,45,354,294"
                Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
                Background="Gray"
                HorizontalTitleAlignment="Right" Height="Auto" Width="Auto" Grid.Row="1">
-                    <Image HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="73" Source="imagenes/papel.png"/>
+                    <Image HorizontalAlignment="Left" Height="76" VerticalAlignment="Top" Width="80" Source="imagenes/contrato1.png"/>
 
                 </Controls:Tile>
 
                 <Controls:Tile Title="Gestion Productores"
                Click="AdmProductor_click"
-               Margin="693,45,25,309"
+               Margin="18,260,700,86"
                Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
                Background="Sienna"
                HorizontalTitleAlignment="Right" Height="Auto" Width="Auto" Grid.Row="1">
-                    <Image HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="73" Source="imagenes/hombre.png"/>
+                    <Image HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="73" Source="imagenes/user_person.png"/>
 
                 </Controls:Tile>
                 <Controls:Tile Title="Gestion Subasta"
@@ -162,18 +173,19 @@
                Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
                Background="MediumPurple"
                HorizontalTitleAlignment="Right" Height="Auto" Width="Auto" Grid.Row="1">
-                    <Image HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="73" Source="imagenes/subasta1.png"/>
+                    <Image HorizontalAlignment="Left" Height="73" VerticalAlignment="Top" Width="80" Source="imagenes/subasta.png"/>
 
                 </Controls:Tile>
                 <Controls:Tile Title="Gestion Venta"
                Click="Venta_click"
                Margin="355,260,354,86"
                Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
-               Background="#3b7aaf"
+               Background="Olive"
                HorizontalTitleAlignment="Right" Height="Auto" Width="Auto" Grid.Row="1">
-                    <Image HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="73" Source="imagenes/ventas.png"/>
+                    <Image HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="73" Source="imagenes/ventas1.png"/>
 
                 </Controls:Tile>
+                <Button x:Name="cerrarSesion" Content="Cerrar Sesion" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="862,456,0,0" Grid.Row="1" Height="36" FontSize="13" Click="cerrarSesion_Click"/>
 
 
 
