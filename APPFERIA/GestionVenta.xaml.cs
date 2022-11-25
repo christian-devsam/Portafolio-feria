@@ -103,7 +103,7 @@ namespace interfazGrafica
                 if (n > 0)
                 {
                     MessageBox.Show(msg);
-                   
+                    this.listar();
                 }
                 return msg;
             }

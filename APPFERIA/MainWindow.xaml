@@ -137,7 +137,7 @@
                 </Controls:Tile>
 
                 <Controls:Tile Title="Gestion Transportista"
-                       Click="Clientes_Click"
+                       Click="Transportista_Click"
                        Margin="701,49,25,294"
                Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
                Background="IndianRed"
