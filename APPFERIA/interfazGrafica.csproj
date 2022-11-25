@@ -234,6 +234,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GestionTransportista.xaml.cs">
+      <DependentUpon>GestionTransportista.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VisualizarPujas.xaml.cs">
       <DependentUpon>VisualizarPujas.xaml</DependentUpon>
     </Compile>
@@ -246,6 +249,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GestionSubasta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GestionTransportista.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

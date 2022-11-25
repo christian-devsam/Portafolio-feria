@@ -98,6 +98,15 @@ namespace interfazGrafica
             this.Close();
             main.ShowDialog();
         }
+
+        
+
+        private void Transportista_Click(object sender, RoutedEventArgs e)
+        {
+            GestionTransportista trans = new GestionTransportista();
+            this.Close();
+            trans.ShowDialog();
+        }
     }
 }
 

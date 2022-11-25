@@ -165,8 +165,8 @@ namespace interfazGrafica
         {
             txtidSubasta.Text = "";
             DpickerFinal.SelectedDate.ToString();
-            cboIdVenta.SelectedValue = "";
-            cboEstado.SelectedValue = "";
+            cboIdVenta.SelectedItem = "";
+            cboEstado.SelectedItem = "";
             
 
         }
@@ -255,6 +255,16 @@ namespace interfazGrafica
 
             cboEstado.DisplayMemberPath = dt.Columns["DESCRIPCION"].ToString();
             cboEstado.SelectedValuePath = dt.Columns["ID_ESTADO"].ToString();
+        }
+
+        private void txtidSubasta_Loaded(object sender, RoutedEventArgs e)
+        {
+            OracleCommand cmd1 = new OracleCommand("select max(ID_SUBASTA)+1 as ID_SUBASTA from SUBASTA", con);
+            OracleDataReader re = cmd1.ExecuteReader();
+
+            DataTable dt = new DataTable();
+            dt.Load(re);
+            txtidSubasta.Text = dt.Rows[0][0].ToString();
         }
 
         //private void enviarCorreo(string to, string idcontrato, string rutcliente, string rutpro, string termino, string obs)
