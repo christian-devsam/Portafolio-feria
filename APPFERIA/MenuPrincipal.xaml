@@ -119,43 +119,50 @@
 
 
 
+                <Label Content="RUT" HorizontalAlignment="Left" Margin="6,45,0,0" VerticalAlignment="Top" FontSize="15" Width="49" RenderTransformOrigin="-0.704,0.253" Grid.Row="1"/>
 
-                <Label Content="RUT" HorizontalAlignment="Left" Margin="6,10,0,0" VerticalAlignment="Top" FontSize="15" Width="49" RenderTransformOrigin="-0.704,0.253" Grid.Row="1"/>
-                <Label Content="Nombre" HorizontalAlignment="Left" Margin="-1,36,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
-                <Label Content="Telefono" HorizontalAlignment="Left" Margin="-1,106,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
-                <Label Content="Direccion" HorizontalAlignment="Left" Margin="0,138,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
-                <Label Content="Correo" HorizontalAlignment="Left" Margin="0,202,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
-                <Label Content="Comuna" HorizontalAlignment="Left" Margin="0,172,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
-                <Label Content="Apellido" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-1,72,0,0" FontSize="15" Grid.Row="1"/>
+                <Label Content="ID
+                       " HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="15" Width="49" RenderTransformOrigin="-0.704,0.253" Grid.Row="1"/>
+                <Label Content="Nombre" HorizontalAlignment="Left" Margin="-1,73,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
+                <Label Content="Telefono" HorizontalAlignment="Left" Margin="-2,139,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
+                <Label Content="Direccion" HorizontalAlignment="Left" Margin="0,172,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
+                <Label Content="Correo" HorizontalAlignment="Left" Margin="288,117,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
+                <Label Content="Comuna" HorizontalAlignment="Left" Margin="-2,262,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
+                <Label Content="Apellido" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,107,0,0" FontSize="15" Grid.Row="1"/>
+                <Label Content="Provincia" HorizontalAlignment="Left" Margin="-1,231,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
+                <Label Content="Region" HorizontalAlignment="Left" Margin="3,202,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
 
 
+                <TextBox x:Name="txtidCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese ID Cliente" Height="15" Margin="70,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1" Loaded="txtidCliente_Loaded"/>
 
-                <TextBox x:Name="txtRutCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese RUT" Height="15" Margin="82,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <TextBox x:Name="txtApellidoPatCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese apellidos" Height="29" Margin="82,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <TextBox x:Name="txtNombreCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese nombres" Height="26" Margin="82,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese correo electrónico" Height="34" Margin="82,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <TextBox x:Name="txtDireccionCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese dirección" Height="29" Margin="82,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" BorderBrush="#FF1E1E28" FontSize="14" RenderTransformOrigin="-0.08,-1.101" Grid.Row="1"/>
-                <TextBox x:Name="txtTelefonoCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese teléfono" Height="27" Margin="82,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <TextBox x:Name="txtComunaCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese comuna" Height="22" Margin="82,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <TextBox x:Name="txtUsuario" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Height="26" Margin="416,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <Label Content="Tipo Cliente :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="306,10,0,0" FontSize="15" Grid.Row="1"/>
-                <TextBox x:Name="txtContrasenia" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Height="26" Margin="416,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <Label Content="Contraseña : " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="306,71,0,0" FontSize="15" Grid.Row="1"/>
+                <TextBox x:Name="txtRutCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese RUT" Height="15" Margin="70,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtApellidoPatCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese apellidos" Height="29" Margin="69,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtNombreCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese nombres" Height="26" Margin="69,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese correo electrónico" Height="34" Margin="348,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtDireccionCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese dirección" Height="29" Margin="69,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" BorderBrush="#FF1E1E28" FontSize="14" RenderTransformOrigin="-0.08,-1.101" Grid.Row="1"/>
+                <TextBox x:Name="txtTelefonoCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese teléfono" Height="27" Margin="69,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <ComboBox x:Name="cboComuna" HorizontalAlignment="Left" Margin="69,266,0,0" Grid.Row="1" VerticalAlignment="Top" Width="220" BorderBrush="Black" />
+                <TextBox x:Name="txtUsuario" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Height="26" Margin="382,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <Label Content="Tipo Cliente&#xD;&#xA;&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="288,10,0,0" FontSize="15" Grid.Row="1"/>
+                <TextBox x:Name="txtContrasenia" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Height="26" Margin="382,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <Label Content="Password&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="288,77,0,0" FontSize="15" Grid.Row="1" Width="85"/>
 
 
                 <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="590,237,0,0" VerticalAlignment="Top" Width="126" Background="#21645d" BorderBrush="White" Click="BtnAgregar_Click" Height="34" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
-                <Button x:Name="btnLimpiar" Content="Limpiar" HorizontalAlignment="Left" Margin="461,202,0,0" VerticalAlignment="Top" Width="75" Click="btnLimpiar_Click" Height="32" Background="#21645d" FontSize="13" BorderBrush="White" Foreground="White" Grid.Row="1" />
+                <Button x:Name="btnLimpiar" Content="Limpiar" HorizontalAlignment="Left" Margin="487,262,0,0" VerticalAlignment="Top" Width="75" Click="btnLimpiar_Click" Height="32" Background="#21645d" FontSize="13" BorderBrush="White" Foreground="White" Grid.Row="1" />
 
                 <Button x:Name="btnTerminar" Content="Eliminar" HorizontalAlignment="Left" Margin="590,316,0,0" VerticalAlignment="Top" Width="126" Background="#21645d" BorderBrush="White" Click="btnEliminar_Click" Height="35" FontSize="15" BorderThickness="2" FontWeight="Bold" Foreground="White" Grid.Row="1"/>
                 <Button x:Name="btnActualizar" Content="Actualizar" HorizontalAlignment="Left" Margin="590,276,0,0" VerticalAlignment="Top" Width="126" BorderBrush="White" Background="#21645d" Click="btnModificar_Click" Height="35" FontSize="15" BorderThickness="2" FontWeight="Bold" Foreground="White" Grid.Row="1"/>
 
                 <Image HorizontalAlignment="Left" Height="241" Margin="541,21,-33,0" VerticalAlignment="Top" Width="251" Source="imagenes/LogoFeriaVirtual.png" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2"/>
 
-                <DataGrid x:Name="dgvListado" HorizontalAlignment="Left" Margin="6,274,0,0" VerticalAlignment="Top" Height="169" Width="538" SelectionChanged="dgvListado_SelectionChanged" Loaded="dgvListado_Loaded" Grid.Row="1"/>
+                <DataGrid x:Name="dgvListado" HorizontalAlignment="Left" Margin="6,303,0,0" VerticalAlignment="Top" Height="140" Width="556" SelectionChanged="dgvListado_SelectionChanged" Loaded="dgvListado_Loaded" Grid.Row="1"/>
 
                 <Button x:Name="btnsalir" Content="Volver" HorizontalAlignment="Left" Margin="613,381,0,0" VerticalAlignment="Top" Width="76" Height="34" FontSize="12" Click="btnSalir_Click" Grid.Row="1"/>
-                <ComboBox x:Name="cboTipoCliente" HorizontalAlignment="Left" Margin="416,13,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" BorderBrush="Black" Loaded="cboTipoCliente_Loaded"/>
-                <Label Content="Usuario : " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="306,41,0,0" FontSize="15" Grid.Row="1"/>
+                <ComboBox x:Name="cboTipoCliente" HorizontalAlignment="Left" Margin="382,13,0,0" Grid.Row="1" VerticalAlignment="Top" Width="180" BorderBrush="Black" Loaded="cboTipoCliente_Loaded"/>
+                <Label Content="Usuario &#xD;&#xA; " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="288,46,0,0" FontSize="15" Grid.Row="1"/>
+                <ComboBox x:Name="cboregion" HorizontalAlignment="Left" Margin="70,205,0,0" Grid.Row="1" VerticalAlignment="Top" Width="219" BorderBrush="Black" Loaded="cboregion_Loaded" SelectionChanged="cboregion_SelectionChanged"/>
+                <ComboBox x:Name="cboprovincia" HorizontalAlignment="Left" Margin="70,235,0,0" Grid.Row="1" VerticalAlignment="Top" Width="219" BorderBrush="Black" SelectionChanged="cboprovincia_SelectionChanged" />
 
 
 

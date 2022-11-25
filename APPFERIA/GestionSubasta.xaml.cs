@@ -68,10 +68,10 @@ namespace interfazGrafica
                     break;
                 case 1:
                     msg = "Subasta Modificada!";
-                    
+
                     cmd.Parameters.Add("FECHA_TERMINO", OracleDbType.Date).Value = DpickerFinal.SelectedDate;
-                    cmd.Parameters.Add("ID_PEDIDO", OracleDbType.Int32, 6).Value = cboIdVenta.SelectedItem;
-                    cmd.Parameters.Add("ID_ESTADO", OracleDbType.Int32, 6).Value = cboEstado.SelectedItem;
+                    cmd.Parameters.Add("ID_PEDIDO", OracleDbType.Int32, 6).Value = cboIdVenta.SelectedValue;
+                    cmd.Parameters.Add("ID_ESTADO", OracleDbType.Int32, 6).Value = cboEstado.SelectedValue;
                     cmd.Parameters.Add("ID_SUBASTA", OracleDbType.Int32, 6).Value = txtidSubasta.Text;
 
                     break;
@@ -116,6 +116,31 @@ namespace interfazGrafica
             {
                 String sql = "UPDATE SUBASTA SET FECHA_TERMINO = :FECHA_TERMINO, ID_PEDIDO = :ID_PEDIDO, ID_ESTADO = :ID_ESTADO " + "WHERE ID_SUBASTA = :ID_SUBASTA";
                 this.AUD(sql, 1);
+
+                // agregar columna correo transportista.
+                //enviarcorreo(To, id_subasta)
+                if (cboEstado.SelectedValue == "2")
+                {
+                    string query = "select x.* from(select t.id_transportista, t.nombre, p.valor , c.id_contrato from subasta s ";
+                    query += "inner join puja p on s.id_subasta = p.id_subasta ";
+                    query += "inner join transportista t on t.id_transportista = p.id_transportista ";
+                    query += "inner join contrato_transporte c on c.id_transportista = t.id_transportista ";
+                    query += "where s.id_subasta =" + txtidSubasta.Text + " ";
+                    query += "order by p.valor asc) x where rownum = 1";
+
+
+
+
+                    OracleCommand cmd = new OracleCommand(query, con);
+
+                    cmd.CommandType = CommandType.Text;
+                    OracleDataReader dr = cmd.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(dr);
+
+                    string correo = dt.Rows[0]["NOMBRE"].ToString();
+                   // enviarCorreo(correo,)
+                }
             }
             catch (Exception ex)
             {
@@ -123,22 +148,7 @@ namespace interfazGrafica
             }
         }
 
-        private void btnTerminarSubasta_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                String sql = "DELETE FROM SUBASTA " +
-                            "WHERE ID_SUBASTA = :ID_SUBASTA";
-                this.AUD(sql, 2);
-                this.limpiar();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-
-        }
+        
 
         private void btnSalirGestionSubasta_Click(object sender, RoutedEventArgs e)
         {
@@ -247,6 +257,34 @@ namespace interfazGrafica
             cboEstado.SelectedValuePath = dt.Columns["ID_ESTADO"].ToString();
         }
 
-        
+        //private void enviarCorreo(string to, string idcontrato, string rutcliente, string rutpro, string termino, string obs)
+        //{
+
+        //    System.Net.Mail.MailMessage correo = new System.Net.Mail.MailMessage();
+        //    correo.From = new System.Net.Mail.MailAddress("feriavirtualmg1@gmail.com", "Maipo Grande", System.Text.Encoding.UTF8);//Correo de salida
+        //    correo.To.Add(to); //Correo destino?
+        //    correo.Subject = "Informacion"; //Asunto
+        //    correo.Body = "Codigo Contrato : " + idcontrato + "\n  "; //Mensaje del correo
+        //    correo.IsBodyHtml = true;
+        //    correo.Priority = MailPriority.Normal;
+        //    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
+        //    smtp.UseDefaultCredentials = false;
+        //    smtp.Host = "smtp.gmail.com"; //Host del servidor de correo
+        //    smtp.Port = 25; //Puerto de salida
+        //    smtp.Credentials = new System.Net.NetworkCredential("feriavirtualmg1@gmail.com", "hantmgmsgkvsljkm");//Cuenta de correo
+        //    ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
+        //    smtp.EnableSsl = true;//True si el servidor de correo permite ssl
+
+        //    try
+        //    {
+        //        smtp.Send(correo);
+        //        MessageBox.Show("Correo enviado exitosamente");
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
     }
 }
