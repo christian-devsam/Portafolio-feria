@@ -18,6 +18,14 @@ using System.Configuration;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 
+
+using System.Net.Mail;
+using System.Web.Configuration;
+using System.Net.Configuration;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
+
 namespace interfazGrafica
 {
     /// <summary>
@@ -26,7 +34,7 @@ namespace interfazGrafica
     public partial class GestionSubasta
     {
         OracleConnection con = null;
-
+        EnvioCorreo enviarCorreo = new EnvioCorreo();
         public GestionSubasta()
         {
             this.abrirConexion();
@@ -119,18 +127,15 @@ namespace interfazGrafica
 
                 // agregar columna correo transportista.
                 //enviarcorreo(To, id_subasta)
-                if (cboEstado.SelectedValue == "2")
+                if (cboEstado.SelectedValue.ToString() == "2")
                 {
-                    string query = "select x.* from(select t.id_transportista, t.nombre, p.valor , c.id_contrato from subasta s ";
+                    string query = "select x.* from(select t.id_transportista, t.nombre, p.valor , c.id_contrato, t.correo from subasta s ";
                     query += "inner join puja p on s.id_subasta = p.id_subasta ";
                     query += "inner join transportista t on t.id_transportista = p.id_transportista ";
                     query += "inner join contrato_transporte c on c.id_transportista = t.id_transportista ";
-                    query += "where s.id_subasta =" + txtidSubasta.Text + " ";
+                    query += "where s.id_subasta = " + " '" + txtidSubasta.Text + "' ";
                     query += "order by p.valor asc) x where rownum = 1";
-
-
-
-
+                    //query para rescatar correo de transportista que puja mas bajo
                     OracleCommand cmd = new OracleCommand(query, con);
 
                     cmd.CommandType = CommandType.Text;
@@ -138,9 +143,107 @@ namespace interfazGrafica
                     DataTable dt = new DataTable();
                     dt.Load(dr);
 
-                    string correo = dt.Rows[0]["NOMBRE"].ToString();
-                   // enviarCorreo(correo,)
+                    string correotrans = dt.Rows[0]["CORREO"].ToString();
+
+
+
+
+                    // query para contrato_transporte
+                    string query1 = "select x.* from(select t.id_transportista, t.NOMBRE||' '||t.APELLIDO as NOMBRE, p.valor , c.id_contrato, t.correo, seg.empresa, ped.fecha_envio, ped.id_pedido from subasta s ";
+                    query1 += "inner join puja p on s.id_subasta = p.id_subasta ";
+                    query1 += "inner join transportista t on t.id_transportista = p.id_transportista ";
+                    query1 += "inner join contrato_transporte c on c.id_transportista = t.id_transportista ";
+                    query1 += "inner join seguro seg on seg.id_seguro = c.id_seguro ";
+                    query1 += "inner join pedido ped on ped.id_pedido = s.id_pedido ";
+                    query1 += "where s.id_subasta = " + " '" + txtidSubasta.Text + "' ";
+                    query1 += "order by p.valor asc) x where rownum = 1";
+
+                    OracleCommand cms = new OracleCommand(query1, con);
+                    cms.CommandType = CommandType.Text;
+                    OracleDataReader rider = cms.ExecuteReader();
+                    DataTable tb = new DataTable();
+                    tb.Load(rider);
+                    //string nombretrans = tb.Rows[0]["NOMBRE"].ToString();
+                    //string price = tb.Rows[0]["VALOR"].ToString();
+                    //string entrega = tb.Rows[0]["FECHA_ENVIO"].ToString();
+
+                    string html1 = "";
+
+                    html1 += "<table style='border: white 5px solid; width:500px'>";
+                    html1 += "<thead><tr><td>ID Contrato</td><td>Nombre Transportista</td><td>Valor Envio</td><td>Fecha Envio</td><td>Empresa aseguradora</td></tr></thead>";
+                    html1 += "<tbody>";
+
+                    html1 += "<tr style='border: white 5px solid;'><td>" + tb.Rows[0]["ID_CONTRATO"].ToString() + "</td>";
+                    html1 += "<td style='border: 1px solid #dddddd padding: 8px'>" + tb.Rows[0]["NOMBRE"].ToString() + "</td><td style='border: 1px solid #dddddd padding: 8px'>" + tb.Rows[0]["VALOR"].ToString() + "</td><td style='border: 1px solid #dddddd padding: 8px'>" + tb.Rows[0]["FECHA_ENVIO"].ToString() + "</td>";
+                    html1 += "<td style='border: 1px solid #dddddd padding: 8px'>" + tb.Rows[0]["EMPRESA"].ToString() + "</td></tr>";
+                    html1 += "</tbody>";
+                    html1 += "</table>";
+
+                    if (enviarCorreo.enviarCorreoTransportista(correotrans, cboIdVenta.Text, html1) != null)
+                    {
+                        MessageBox.Show("Contrato enviado al transportista !");
+                    }
+
+
+
+
+
+
+                    OracleCommand cmd1 = con.CreateCommand();
+
+                    //query para rescatar correo de cliente
+                    cmd1.CommandText = "SELECT C.CORREO as correo FROM CLIENTE C INNER JOIN PEDIDO P ON p.rut_cli = c.rut_cli WHERE P.ID_PEDIDO = " + "'" + cboIdVenta.SelectedValue + "'";
+                    cmd1.CommandType = CommandType.Text;
+                    OracleDataReader dr2 = cmd1.ExecuteReader();
+                    DataTable dt1 = new DataTable();
+                    dt1.Load(dr2);
+                    string correocli = dt1.Rows[0]["CORREO"].ToString();
+                    dr2.Close();
+                    //query venta
+                    OracleCommand cmd2 = con.CreateCommand();
+
+                    cmd2.CommandText = "SELECT * FROM detalle_pedido d inner join pedido pe on pe.id_pedido = d.id_pedido inner join producto p on p.id_producto = d.id_producto inner join cliente c on pe.rut_cli = c.rut_cli where pe.id_pedido =" + "'" + cboIdVenta.Text + "'";
+                    cmd2.CommandType = CommandType.Text;
+                    OracleDataReader dr3 = cmd2.ExecuteReader();
+                    DataTable dt2 = new DataTable();
+                    dt2.Load(dr3);
+
+                    string html = "";
+                    html += "<head><meta charset='UTF-8' ></head>";
+                    html += "<body>";
+                    html += "<h1>Boleta Cliente</h1>";
+                    html += "<tr><td>&#128151 Codigo de la Venta    :    " + dt2.Rows[0]["ID_PEDIDO"].ToString() + "</td></tr>";
+                    html += "<tr><td>Nombre del Cliente    :    " + dt2.Rows[0]["NOMBRE"].ToString() + " " + dt2.Rows[0]["APELLIDO"].ToString() + "</td></tr>";
+                    html += "<tr><td>Fecha de Envío        :    " + dt2.Rows[0]["FECHA_ENVIO"].ToString() + "</td></tr>";
+                    html += "<table style='border: white 5px solid; width:300px'>";
+                    html += "<thead><tr><td scope='col'>Cantidad</td><td>Nombre Producto</td><td>Valor</td></tr></thead>";
+                    html += "<tbody>";
+                    for (int i = 0; i < dt2.Rows.Count; i++)
+                    {
+                        html += "<tr style='border: white 5px solid;'><td>" + dt2.Rows[i]["CANTIDAD"].ToString() + "</td>";
+                        html += "<td>" + dt2.Rows[i]["NOMBRE_PRODUCTO"].ToString() + "</td><td>" + dt2.Rows[i]["VALOR"].ToString() + "</td></tr>";
+                    }
+                    html += "</tbody>";
+                    html += "</table>";
+                    html += "<table style='border: white 5px solid; width:200px'>";
+                    html += "<tbody>";
+                    html += "<tr><td></td></tr>";
+                    html += "<tr><td style='border: 1px solid #dddddd padding: 8px'>Sub Total         :    </td><td>" + dt2.Rows[0]["SUB_TOTAL"].ToString() + "</td></tr>";
+                    html += "<tr><td style='border: 1px solid #dddddd padding: 8px'>Precio Transporte :    </td><td>" + dt2.Rows[0]["P_TRANSPORTE"].ToString() + "</td></tr>";
+                    html += "<tr><td style='border: 1px solid #dddddd padding: 8px'>Comision          :    </td><td>" + dt2.Rows[0]["COMISION_MG"].ToString() + "</td></tr>";
+                    html += "<tr><td style='border: 1px solid #dddddd padding: 8px'>Total a Pagar     :    </td><td>" + dt2.Rows[0]["TOTAL_PAGAR"].ToString() + "</td></tr>";
+                    html += "</tbody>";
+                    html += "</table>";
+                    html += "<body>";
+
+
+                    if (enviarCorreo.enviarCorreoCliente(correocli, html) != null)
+                    {
+                        MessageBox.Show("Boleta enviada al cliente !");
+                    }
+                    
                 }
+
             }
             catch (Exception ex)
             {
@@ -267,34 +370,64 @@ namespace interfazGrafica
             txtidSubasta.Text = dt.Rows[0][0].ToString();
         }
 
-        //private void enviarCorreo(string to, string idcontrato, string rutcliente, string rutpro, string termino, string obs)
-        //{
+        private void enviarCorreoCliente(string to, string idventa, string nombrecli, string html, string canpro, string envio)
+        {
 
-        //    System.Net.Mail.MailMessage correo = new System.Net.Mail.MailMessage();
-        //    correo.From = new System.Net.Mail.MailAddress("feriavirtualmg1@gmail.com", "Maipo Grande", System.Text.Encoding.UTF8);//Correo de salida
-        //    correo.To.Add(to); //Correo destino?
-        //    correo.Subject = "Informacion"; //Asunto
-        //    correo.Body = "Codigo Contrato : " + idcontrato + "\n  "; //Mensaje del correo
-        //    correo.IsBodyHtml = true;
-        //    correo.Priority = MailPriority.Normal;
-        //    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
-        //    smtp.UseDefaultCredentials = false;
-        //    smtp.Host = "smtp.gmail.com"; //Host del servidor de correo
-        //    smtp.Port = 25; //Puerto de salida
-        //    smtp.Credentials = new System.Net.NetworkCredential("feriavirtualmg1@gmail.com", "hantmgmsgkvsljkm");//Cuenta de correo
-        //    ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
-        //    smtp.EnableSsl = true;//True si el servidor de correo permite ssl
+            System.Net.Mail.MailMessage correo = new System.Net.Mail.MailMessage();
+            correo.From = new System.Net.Mail.MailAddress("feriavirtualmg1@gmail.com", "Maipo Grande", System.Text.Encoding.UTF8);//Correo de salida
+            correo.To.Add(to); //Correo destino?
+            correo.Subject = "Boleta Cliente Feria Virtual"; //Asunto
+            correo.Body = "Codigo de la Venta : " + idventa + "  Nombre del cliente : " + nombrecli + " " + html + " " + canpro + " Fecha de Envio : " + envio; //Mensaje del correo
+            correo.IsBodyHtml = true;
+            correo.Priority = MailPriority.Normal;
+            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
+            smtp.UseDefaultCredentials = false;
+            smtp.Host = "smtp.gmail.com"; //Host del servidor de correo
+            smtp.Port = 25; //Puerto de salida
+            smtp.Credentials = new System.Net.NetworkCredential("feriavirtualmg1@gmail.com", "hantmgmsgkvsljkm");//Cuenta de correo
+            ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
+            smtp.EnableSsl = true;//True si el servidor de correo permite ssl
 
-        //    try
-        //    {
-        //        smtp.Send(correo);
-        //        MessageBox.Show("Correo enviado exitosamente");
-        //    }
-        //    catch (Exception ex)
-        //    {
+            try
+            {
+                smtp.Send(correo);
+                MessageBox.Show("Correo enviado exitosamente");
+            }
+            catch (Exception ex)
+            {
 
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //}
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void enviarCorreoTransportista(string to, string idventa, string nombrecli, string html, string canpro, string envio)
+        {
+
+            System.Net.Mail.MailMessage correo = new System.Net.Mail.MailMessage();
+            correo.From = new System.Net.Mail.MailAddress("feriavirtualmg1@gmail.com", "Maipo Grande", System.Text.Encoding.UTF8);//Correo de salida
+            correo.To.Add(to); //Correo destino?
+            correo.Subject = "Boleta Cliente Feria Virtual"; //Asunto
+            correo.Body = "Codigo de la Venta : " + idventa + "  Nombre del cliente : " + nombrecli + " " + html + " " + canpro + " Fecha de Envio : " + envio; //Mensaje del correo
+            correo.IsBodyHtml = true;
+            correo.Priority = MailPriority.Normal;
+            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
+            smtp.UseDefaultCredentials = false;
+            smtp.Host = "smtp.gmail.com"; //Host del servidor de correo
+            smtp.Port = 25; //Puerto de salida
+            smtp.Credentials = new System.Net.NetworkCredential("feriavirtualmg1@gmail.com", "hantmgmsgkvsljkm");//Cuenta de correo
+            ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
+            smtp.EnableSsl = true;//True si el servidor de correo permite ssl
+
+            try
+            {
+                smtp.Send(correo);
+                MessageBox.Show("Correo enviado exitosamente");
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+        
     }
 }

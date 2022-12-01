@@ -92,11 +92,13 @@ namespace interfazGrafica
                     cmd.Parameters.Add("DIRECCION", OracleDbType.Varchar2, 50).Value = txtDireccionCliente.Text;
                     cmd.Parameters.Add("TELEFONO", OracleDbType.Int32, 10).Value = int.Parse(txtTelefonoCliente.Text);
                     cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 50).Value = txtEmail.Text;
-                    cmd.Parameters.Add("COMUNA", OracleDbType.Varchar2, 50).Value = cboComuna.SelectedValue;
                     cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 20).Value = txtUsuario.Text;
                     cmd.Parameters.Add("CONTRASENIA", OracleDbType.Varchar2, 20).Value = txtContrasenia.Text;
                     cmd.Parameters.Add("ID_CLIENTE", OracleDbType.Int32, 20).Value = int.Parse(txtidCliente.Text);
-
+                    cmd.Parameters.Add("ID_PAIS", OracleDbType.Int32, 10).Value = 1;
+                    cmd.Parameters.Add("REGION_ID", OracleDbType.Int32, 10).Value = cboregion.SelectedValue;
+                    cmd.Parameters.Add("PROVINCIA_ID", OracleDbType.Int32, 10).Value = cboprovincia.SelectedValue;
+                    cmd.Parameters.Add("ID_COMUNA", OracleDbType.Int32, 10).Value = cboComuna.SelectedValue;
 
                     break;
                 case 1:
@@ -142,7 +144,7 @@ namespace interfazGrafica
             {
 
             
-            String sql = "INSERT INTO CLIENTE (RUT_CLI, ID_TIPOCLIENTE, NOMBRE, APELLIDO, DIRECCION, TELEFONO, CORREO, COMUNA, USUARIO, CONTRASENIA, ID_CLIENTE )" + "VALUES( :RUT_CLI, :ID_TIPOCLIENTE, :NOMBRE, :APELLIDO, :DIRECCION, :TELEFONO, :CORREO, :COMUNA, :USUARIO, :CONTRASENIA, :ID_CLIENTE)";
+            String sql = "INSERT INTO CLIENTE (RUT_CLI, ID_TIPOCLIENTE, NOMBRE, APELLIDO, DIRECCION, TELEFONO, CORREO, USUARIO, CONTRASENIA, ID_CLIENTE, ID_PAIS, REGION_ID, PROVINCIA_ID, ID_COMUNA )" + "VALUES( :RUT_CLI, :ID_TIPOCLIENTE, :NOMBRE, :APELLIDO, :DIRECCION, :TELEFONO, :CORREO, :USUARIO, :CONTRASENIA, :ID_CLIENTE, :ID_PAIS, :REGION_ID, :PROVINCIA_ID, :ID_COMUNA)";
             this.AUD(sql, 0);
 
             btnAgregar.IsEnabled = false;
@@ -401,6 +403,7 @@ namespace interfazGrafica
             DataTable dt = new DataTable();
             dt.Load(re);
             txtidCliente.Text = dt.Rows[0][0].ToString();
+            
         }
     }
 }

@@ -148,6 +148,7 @@
     <Compile Include="ClienteCollection.cs" />
     <Compile Include="Contrato.cs" />
     <Compile Include="ContratoCollection.cs" />
+    <Compile Include="EnvioCorreo.cs" />
     <Compile Include="Productor.cs" />
     <Compile Include="ProductorCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

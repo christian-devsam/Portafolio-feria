@@ -57,33 +57,39 @@ namespace interfazGrafica
             {
                 case 0:
                     msg = "Productor agregado!";
-                    cmd.Parameters.Add("RUT_DIS", OracleDbType.Varchar2, 20).Value = txtRutProductor.Text;
-                    cmd.Parameters.Add("NOMBRE_DIS", OracleDbType.Varchar2, 50).Value = txtNombreProductor.Text;
-                    cmd.Parameters.Add("APELLIDO_DIS", OracleDbType.Varchar2, 50).Value = txtApellidos.Text;
-                    cmd.Parameters.Add("DIRECCION_DIS", OracleDbType.Varchar2, 50).Value = txtDireccion.Text;
-                    cmd.Parameters.Add("TELEFONO_DIS", OracleDbType.Int32, 38).Value = txtTelefono.Text;
-                    cmd.Parameters.Add("CORREO_DIS", OracleDbType.Varchar2, 50).Value = txtEmail.Text;
 
+                    cmd.Parameters.Add("RUT_PRO", OracleDbType.Varchar2, 20).Value = txtRutProductor.Text;
+                    cmd.Parameters.Add("NOMBRE", OracleDbType.Varchar2, 50).Value = txtNombreProductor.Text;
+                    cmd.Parameters.Add("APELLIDO", OracleDbType.Varchar2, 50).Value = txtApellidos.Text;
+                    cmd.Parameters.Add("DIRECCION", OracleDbType.Varchar2, 70).Value = txtDireccion.Text;
+                    cmd.Parameters.Add("TELEFONO", OracleDbType.Int32, 38).Value = int.Parse(txtTelefono.Text);
+                    cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 50).Value = txtEmail.Text;
+                    cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 50).Value = txtEmail.Text;
+                    cmd.Parameters.Add("CONTRASENIA", OracleDbType.Varchar2, 50).Value = txtRutProductor.Text;
+                    cmd.Parameters.Add("REGION_ID", OracleDbType.Varchar2, 50).Value = cboregion.SelectedValue.ToString();
 
 
                     break;
                 case 1:
                     msg = "Productor modificado!";
 
-                    cmd.Parameters.Add("NOMBRE_DIS", OracleDbType.Varchar2, 50).Value = txtNombreProductor.Text;
-                    cmd.Parameters.Add("APELLIDO_DIS", OracleDbType.Varchar2, 50).Value = txtApellidos.Text;
-                    cmd.Parameters.Add("DIRECCION_DIS", OracleDbType.Varchar2, 50).Value = txtDireccion.Text;
-                    cmd.Parameters.Add("TELEFONO_DIS", OracleDbType.Int32, 38).Value = int.Parse(txtTelefono.Text);
-                    cmd.Parameters.Add("CORREO_DIS", OracleDbType.Varchar2, 50).Value = txtEmail.Text;
-                    cmd.Parameters.Add("RUT_DIS", OracleDbType.Varchar2, 20).Value = txtRutProductor.Text;
-
+                    
+                    cmd.Parameters.Add("NOMBRE", OracleDbType.Varchar2, 50).Value = txtNombreProductor.Text;
+                    cmd.Parameters.Add("APELLIDO", OracleDbType.Varchar2, 50).Value = txtApellidos.Text;
+                    cmd.Parameters.Add("DIRECCION", OracleDbType.Varchar2, 70).Value = txtDireccion.Text;
+                    cmd.Parameters.Add("TELEFONO", OracleDbType.Int32, 38).Value = int.Parse(txtTelefono.Text);
+                    cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 20).Value = txtEmail.Text;
+                    cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 20).Value = txtEmail.Text;
+                    cmd.Parameters.Add("CONTRASENIA", OracleDbType.Varchar2, 20).Value = txtRutProductor.Text;
+                    cmd.Parameters.Add("REGION_ID", OracleDbType.Int32, 6).Value = cboregion.SelectedValue.ToString();
+                    cmd.Parameters.Add("RUT_PRO", OracleDbType.Varchar2, 20).Value = txtRutProductor.Text;
 
 
                     break;
                 case 2:
                     msg = "Productor Eliminado!";
 
-                    cmd.Parameters.Add("RUT_DIS", OracleDbType.Varchar2, 20).Value = txtRutProductor.Text;
+                    cmd.Parameters.Add("RUT_PRO", OracleDbType.Varchar2, 20).Value = txtRutProductor.Text;
 
                     break;
             }
@@ -101,26 +107,23 @@ namespace interfazGrafica
 
         private void btnGuardarProductor_Click(object sender, RoutedEventArgs e)
         {
-            String sql = "INSERT INTO DISTRIBUIDOR (RUT_DIS, NOMBRE_DIS, APELLIDO_DIS, DIRECCION_DIS, TELEFONO_DIS, CORREO_DIS )" + "VALUES( :RUT_DIS, :NOMBRE_DIS, :APELLIDO_DIS, :DIRECCION_DIS, :TELEFONO_DIS, :CORREO_DIS )";
+            String sql = "INSERT INTO PRODUCTOR (RUT_PRO, NOMBRE, APELLIDO, DIRECCION, TELEFONO, CORREO, USUARIO, CONTRASENIA, REGION_ID )" + "VALUES( :RUT_PRO, :NOMBRE, :APELLIDO, :DIRECCION, :TELEFONO, :CORREO, :USUARIO, :CONTRASENIA, :REGION_ID )";
             this.AUD(sql, 0);
 
-            btnGuardarProductor.IsEnabled = false;
-            btnEliminarProductor.IsEnabled = true;
-            btnActualizarProductor.IsEnabled = true;
         }
 
         private void btnEliminarProductor_Click(object sender, RoutedEventArgs e)
         {
-            String sql = "DELETE FROM DISTRIBUIDOR " +
-              "WHERE RUT_DIS = :RUT_DIS";
+            String sql = "DELETE FROM PRODUCTOR " +
+              "WHERE RUT_PRO = :RUT_PRO";
             this.AUD(sql, 2);
             this.limpiar();
         }
 
         private void btnActualizarProductor_Click(object sender, RoutedEventArgs e)
         {
-            String sql = "UPDATE DISTRIBUIDOR SET NOMBRE_DIS = :NOMBRE_DIS," + "APELLIDO_DIS =:APELLIDO_DIS, DIRECCION_DIS =:DIRECCION_DIS, TELEFONO_DIS =:TELEFONO_DIS, CORREO_DIS =:CORREO_DIS " +
-                        "WHERE RUT_DIS = :RUT_DIS";
+            String sql = "UPDATE PRODUCTOR SET NOMBRE = :NOMBRE," + "APELLIDO =:APELLIDO, DIRECCION =:DIRECCION, TELEFONO =:TELEFONO, CORREO =:CORREO, USUARIO =: USUARIO, CONTRASENIA =: CONTRASENIA, REGION_ID =: REGION_ID " +
+                        "WHERE RUT_PRO = :RUT_PRO";
             this.AUD(sql, 1);
         }
 
@@ -132,6 +135,7 @@ namespace interfazGrafica
             txtDireccion.Text = "";
             txtEmail.Text = "";
             txtTelefono.Text = "";
+            cboregion.Text = "";
 
 
         }
@@ -140,7 +144,7 @@ namespace interfazGrafica
         {
             OracleCommand cmd = con.CreateCommand();
 
-            cmd.CommandText = "SELECT * FROM DISTRIBUIDOR";
+            cmd.CommandText = "SELECT * FROM PRODUCTOR";
             cmd.CommandType = CommandType.Text;
             OracleDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
@@ -148,10 +152,6 @@ namespace interfazGrafica
             dgvListado.ItemsSource = dt.DefaultView;
             dr.Close();
         }
-
-        
-
-        
 
         
 
@@ -173,17 +173,14 @@ namespace interfazGrafica
             DataRowView dr = dg.SelectedItem as DataRowView;
             if (dr != null)
             {
-                txtRutProductor.Text = dr["RUT_DIS"].ToString();
-                txtNombreProductor.Text = dr["NOMBRE_DIS"].ToString();
-                txtApellidos.Text = dr["APELLIDO_DIS"].ToString();
-                txtDireccion.Text = dr["DIRECCION_DIS"].ToString();
-                txtTelefono.Text = dr["TELEFONO_DIS"].ToString();
-                txtEmail.Text = dr["CORREO_DIS"].ToString();
+                txtRutProductor.Text = dr["RUT_PRO"].ToString();
+                txtNombreProductor.Text = dr["NOMBRE"].ToString();
+                txtApellidos.Text = dr["APELLIDO"].ToString();
+                txtDireccion.Text = dr["DIRECCION"].ToString();
+                txtTelefono.Text = dr["TELEFONO"].ToString();
+                txtEmail.Text = dr["CORREO"].ToString();
+                cboregion.Text = dr["REGION_ID"].ToString();
 
-
-                btnGuardarProductor.IsEnabled = false;
-                btnEliminarProductor.IsEnabled = true;
-                btnActualizarProductor.IsEnabled = true;
 
 
             }
@@ -208,6 +205,25 @@ namespace interfazGrafica
         {
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
+        }
+
+        private void cboregion_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.cargarRegion();
+        }
+        public void cargarRegion()
+        {
+            OracleCommand cmd1 = new OracleCommand("SELECT * from region", con);
+            OracleDataReader re = cmd1.ExecuteReader();
+
+            DataTable dt = new DataTable();
+            dt.Load(re);
+            var data = (dt as System.ComponentModel.IListSource).GetList();
+
+            cboregion.ItemsSource = data;
+
+            cboregion.DisplayMemberPath = dt.Columns["REGION"].ToString();
+            cboregion.SelectedValuePath = dt.Columns["REGION_ID"].ToString();
         }
     }
 }

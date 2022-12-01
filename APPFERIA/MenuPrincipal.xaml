@@ -133,7 +133,7 @@
                 <Label Content="Region" HorizontalAlignment="Left" Margin="3,202,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
 
 
-                <TextBox x:Name="txtidCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese ID Cliente" Height="15" Margin="70,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1" Loaded="txtidCliente_Loaded"/>
+                <TextBox x:Name="txtidCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese ID Cliente" Height="15" Margin="70,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1" Loaded="txtidCliente_Loaded" IsEnabled="False"/>
 
                 <TextBox x:Name="txtRutCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese RUT" Height="15" Margin="70,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
                 <TextBox x:Name="txtApellidoPatCliente" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese apellidos" Height="29" Margin="69,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>

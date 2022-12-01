@@ -234,12 +234,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ADMDetallePedido.xaml.cs">
+      <DependentUpon>ADMDetallePedido.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GestionTransportista.xaml.cs">
       <DependentUpon>GestionTransportista.xaml</DependentUpon>
     </Compile>
     <Compile Include="VisualizarPujas.xaml.cs">
       <DependentUpon>VisualizarPujas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VisualizarVentas.xaml.cs">
+      <DependentUpon>VisualizarVentas.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ADMDetallePedido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GestionContrato.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -304,6 +314,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="VisualizarPujas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VisualizarVentas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
