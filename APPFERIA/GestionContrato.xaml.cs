@@ -55,7 +55,6 @@ namespace interfazGrafica
             {
 
                 MessageBox.Show("error");
-                throw new Exception("errorrrrr");
             }
         }
 
@@ -71,26 +70,30 @@ namespace interfazGrafica
             {
                 case 0:
                     msg = "Contrato Agregado!";
-                    cmd.Parameters.Add("CODIGO", OracleDbType.Int32, 6).Value = int.Parse(txtidContrato.Text);
-                    cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 20).Value = cboNombreCliente.SelectedItem;
+                    cmd.Parameters.Add("ID_CONTRATO", OracleDbType.Int32, 6).Value = int.Parse(txtidContrato.Text);
+                    cmd.Parameters.Add("FECHA_INGRESO", OracleDbType.Date).Value = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                    cmd.Parameters.Add("FECHA_TERMINO", OracleDbType.Date).Value = DpickerTermino.SelectedDate;
+                    cmd.Parameters.Add("VIGENCIA", OracleDbType.Char).Value = true;
                     cmd.Parameters.Add("RUT_PRO", OracleDbType.Varchar2, 20).Value = cboNombreProductor.SelectedItem;
-                    cmd.Parameters.Add("TERMINO", OracleDbType.Date).Value = DpickerTermino.SelectedDate;
-                    cmd.Parameters.Add("OBS", OracleDbType.Varchar2, 200).Value = txtObservaciones.Text;
+                    cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 20).Value = cboNombreCliente.SelectedItem;
+                    cmd.Parameters.Add("OBSERVACIONES", OracleDbType.Varchar2, 255).Value = txtObservaciones.Text;
                     break;
 
                 case 1:
                     msg = "Contrato modificado! ";
-                    cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 20).Value = cboNombreCliente.SelectedItem;
+                    
+                    cmd.Parameters.Add("FECHA_INGRESO", OracleDbType.Date).Value = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                    cmd.Parameters.Add("FECHA_TERMINO", OracleDbType.Date).Value = DpickerTermino.SelectedDate;
+                    cmd.Parameters.Add("VIGENCIA", OracleDbType.Char).Value = true;
                     cmd.Parameters.Add("RUT_PRO", OracleDbType.Varchar2, 20).Value = cboNombreProductor.SelectedItem;
-                    cmd.Parameters.Add("TERMINO", OracleDbType.Date).Value = DpickerTermino.SelectedDate;
-                    cmd.Parameters.Add("OBS", OracleDbType.Varchar2, 200).Value = txtObservaciones.Text;
-                    cmd.Parameters.Add("CODIGO", OracleDbType.Int32, 6).Value = int.Parse(txtidContrato.Text);
-
+                    cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 20).Value = cboNombreCliente.SelectedItem;
+                    cmd.Parameters.Add("OBSERVACIONES", OracleDbType.Varchar2, 255).Value = txtObservaciones.Text;
+                    cmd.Parameters.Add("ID_CONTRATO", OracleDbType.Int32, 6).Value = int.Parse(txtidContrato.Text);
 
                     break;
                 case 2:
                     msg = "Contrato eliminado !";
-                    cmd.Parameters.Add("CODIGO", OracleDbType.Int32, 6).Value = int.Parse(txtidContrato.Text);
+                    cmd.Parameters.Add("ID_CONTRATO", OracleDbType.Int32, 6).Value = int.Parse(txtidContrato.Text);
 
                     break;
 
@@ -116,7 +119,7 @@ namespace interfazGrafica
         {
             try
             {
-                String sql = "INSERT INTO CONTRATO (CODIGO, RUT_CLI, RUT_PRO, TERMINO, OBS )" + " VALUES(:CODIGO, :RUT_CLI, :RUT_PRO, :TERMINO, :OBS )";
+                String sql = "INSERT INTO CONTRATO (ID_CONTRATO, FECHA_INICIO, FECHA_TERMINO, VIGENCIA, RUT_PRO, RUT_CLI, OBSERVACIONES )" + " VALUES(:ID_CONTRATO, :FECHA_INICIO, :FECHA_TERMINO, :VIGENCIA, :RUT_PRO, :RUT_CLI, :OBSERVACIONES )";
                 this.AUD(sql, 0);
             }
             catch (Exception ex)
@@ -132,7 +135,7 @@ namespace interfazGrafica
 
             try
             {
-                String sql = "UPDATE CONTRATO SET RUT_CLI = :RUT_CLI," + "RUT_PRO = :RUT_PRO, TERMINO = :TERMINO, OBS = :OBS " + "WHERE CODIGO = :CODIGO";
+                String sql = "UPDATE CONTRATO SET FECHA_INICIO = :FECHA_INICIO," + "FECHA_TERMINO = :FECHA_TERMINO, VIGENCIA = :VIGENCIA, RUT_PRO = :RUT_PRO, RUT_CLI = :RUT_CLI, OBSERVACIONES = :OBSERVACIONES " + "WHERE ID_CONTRATO = :ID_CONTRATO";
                 this.AUD(sql, 1);
             }
             catch (Exception ex)
@@ -148,7 +151,7 @@ namespace interfazGrafica
             try
             {
                 String sql = "DELETE FROM CONTRATO " +
-                "WHERE CODIGO = :CODIGO";
+                "WHERE ID_CONTRATO = :ID_CONTRATO";
                 this.AUD(sql, 2);
                 this.Limpiar();
             }
@@ -219,13 +222,13 @@ namespace interfazGrafica
 
         private void cboNombreCliente_Loaded(object sender, RoutedEventArgs e)
         {
-            OracleCommand cmd1 = new OracleCommand("SELECT RUT_REGISTRO FROM REGISTRO", con);
+            OracleCommand cmd1 = new OracleCommand("SELECT RUT_CLI FROM CLIENTE", con);
 
             OracleDataReader re = cmd1.ExecuteReader();
             while (re.Read())
             {
 
-                cboNombreCliente.Items.Add(re["RUT_REGISTRO"].ToString());
+                cboNombreCliente.Items.Add(re["RUT_CLI"].ToString());
 
             }
         }
@@ -318,6 +321,18 @@ namespace interfazGrafica
             //corremos el metodo 
             enviarCorreo(correo, txtidContrato.Text, cboNombreCliente.SelectedItem.ToString(), cboNombreProductor.SelectedItem.ToString(), DpickerTermino.Text, txtObservaciones.Text);
         }
+
+        private void txtidContrato_Loaded(object sender, RoutedEventArgs e)
+        {
+            OracleCommand cmd1 = new OracleCommand("select max(ID_CONTRATO)+1 as ID_CONTRATO from CONTRATO", con);
+            OracleDataReader re = cmd1.ExecuteReader();
+
+            DataTable dt = new DataTable();
+            dt.Load(re);
+            txtidContrato.Text = dt.Rows[0][0].ToString();
+        }
+
+        
     }
         
 }

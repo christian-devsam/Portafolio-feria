@@ -72,7 +72,7 @@ namespace interfazGrafica
 
         private void Venta_click(object sender, RoutedEventArgs e)
         {
-            GestionVenta venta = new GestionVenta();
+            VisualizarVentas venta = new VisualizarVentas();
             this.Close();
             venta.ShowDialog();
         }

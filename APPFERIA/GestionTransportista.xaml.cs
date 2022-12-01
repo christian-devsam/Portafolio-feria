@@ -101,10 +101,11 @@ namespace interfazGrafica
                     cmd.Parameters.Add("NOMBRE", OracleDbType.Varchar2, 50).Value = txtNombreTransportista.Text;
                     cmd.Parameters.Add("APELLIDO", OracleDbType.Varchar2, 50).Value = txtApellidoTransportista.Text;
                     cmd.Parameters.Add("TELEFONO", OracleDbType.Int32, 20).Value = int.Parse(txtTelefonotransportista.Text);
-                    cmd.Parameters.Add("ID_LICENCIA", OracleDbType.Int32, 20).Value = cboLicencia.SelectedValue;
                     cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 20).Value = txtUsuario.Text;
                     cmd.Parameters.Add("CONTRASENIA", OracleDbType.Varchar2, 20).Value = txtContrasenia.Text;
                     cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 20).Value = txtEmailTransportista.Text;
+                    cmd.Parameters.Add("ID_LICENCIA", OracleDbType.Int32, 20).Value = cboLicencia.SelectedValue;
+
 
                     break;
                 case 1:
@@ -112,10 +113,10 @@ namespace interfazGrafica
                     cmd.Parameters.Add("NOMBRE", OracleDbType.Varchar2, 50).Value = txtNombreTransportista.Text;
                     cmd.Parameters.Add("APELLIDO", OracleDbType.Varchar2, 50).Value = txtApellidoTransportista.Text;
                     cmd.Parameters.Add("TELEFONO", OracleDbType.Int32, 20).Value = int.Parse(txtTelefonotransportista.Text);
-                    cmd.Parameters.Add("ID_LICENCIA", OracleDbType.Int32, 20).Value = cboLicencia.SelectedValue;
                     cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 20).Value = txtUsuario.Text;
                     cmd.Parameters.Add("CONTRASENIA", OracleDbType.Varchar2, 20).Value = txtContrasenia.Text;
                     cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 20).Value = txtEmailTransportista.Text;
+                    cmd.Parameters.Add("ID_LICENCIA", OracleDbType.Int32, 20).Value = cboLicencia.SelectedValue;
                     cmd.Parameters.Add("ID_TRANSPORTISTA", OracleDbType.Int32, 20).Value = int.Parse(txtidtransportista.Text);
 
                     break;
@@ -148,7 +149,7 @@ namespace interfazGrafica
         {
             try
             {
-                String sql = "INSERT INTO TRANSPORTISTA (ID_TRANSPORTISTA, NOMBRE, APELLIDO, TELEFONO, USUARIO, CONTRASENIA, CORREO, ID_LICENCIA)" + "VALUES(:ID_TRANSPORTISTA, :NOMBRE, :APELLIDO, :TELEFONO , :LICENCIA_CONDUCIR, :USUARIO, :CONTRASENIA, :CORREO , :ID_LICENCIA )";
+                String sql = "INSERT INTO TRANSPORTISTA (ID_TRANSPORTISTA, NOMBRE, APELLIDO, TELEFONO, USUARIO, CONTRASENIA, CORREO, ID_LICENCIA)" + "VALUES(:ID_TRANSPORTISTA, :NOMBRE, :APELLIDO, :TELEFONO , :USUARIO, :CONTRASENIA, :CORREO , :ID_LICENCIA )";
                 this.AUD(sql, 0);
                 this.limpiar();
 
@@ -185,7 +186,7 @@ namespace interfazGrafica
         {
             OracleCommand cmd = con.CreateCommand();
 
-            cmd.CommandText = "SELECT T.ID_TRANSPORTISTA, T.NOMBRE , T.TELEFONO, T.CORREO, L.NOMBRE FROM TRANSPORTISTA T INNER JOIN LICENCIA_CONDUCIR L ON T.ID_LICENCIA = L.ID_LICENCIA";
+            cmd.CommandText = "SELECT ID_TRANSPORTISTA, NOMBRE , TELEFONO, CORREO FROM TRANSPORTISTA";
             cmd.CommandType = CommandType.Text;
             OracleDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable();

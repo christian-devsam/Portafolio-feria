@@ -6,7 +6,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:interfazGrafica"
         mc:Ignorable="d"
-        Title="FERIA VIRTUAL    -    GESTION PRODUCTORES" Height="438.603" Width="976.155" 
+        Title="FERIA VIRTUAL    -    GESTION PRODUCTORES" Height="438.603" Width="897.155" 
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen"
                       Background="Transparent" AllowsTransparency="True" 
@@ -14,7 +14,7 @@
         
         
         >
-    <Border CornerRadius="12">
+    <Border CornerRadius="12" Margin="0,0,25,0">
         <Border.Background>
             <ImageBrush ImageSource="/imagenes/LogoFeriaVirtual.png"
                         Stretch="None"/>
@@ -40,12 +40,12 @@
 
 
 
-            <Grid>
+            <Grid Margin="0,0,-2,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Margin="0,0,46,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="25"/>
@@ -123,28 +123,30 @@
 
 
 
-                <Button x:Name="btnGuardarProductor" Content="AGREGAR" HorizontalAlignment="Left" Margin="21,177,0,0" VerticalAlignment="Top" Width="126" Background="#21645d" BorderBrush="White" Click="btnGuardarProductor_Click" Height="34" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
-                <Button x:Name="btnActualizarProductor" Content="Actualizar" HorizontalAlignment="Left" Margin="21,216,0,0" VerticalAlignment="Top" Width="126" BorderBrush="White" Background="#21645d" Click="btnActualizarProductor_Click" Height="35" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
-                <Button x:Name="btnEliminarProductor" Content="Eliminar" HorizontalAlignment="Left" Margin="21,256,0,0" VerticalAlignment="Top" Width="126" Background="#21645d" BorderBrush="White" Click="btnEliminarProductor_Click" Height="35" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
-                <Button x:Name="btnSalirProductor" Content="Volver" HorizontalAlignment="Left" Margin="38,334,0,0" VerticalAlignment="Top" Width="83" BorderBrush="White" Background="White" Click="btnSalirProductor_Click" Height="32" FontSize="15" RenderTransformOrigin="0.459,0.576" Grid.Row="1"/>
+                <Button x:Name="btnGuardarProductor" Content="AGREGAR" HorizontalAlignment="Left" Margin="317,276,0,0" VerticalAlignment="Top" Width="126" Background="#21645d" BorderBrush="White" Click="btnGuardarProductor_Click" Height="34" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
+                <Button x:Name="btnActualizarProductor" Content="Modificar" HorizontalAlignment="Left" Margin="182,340,0,0" VerticalAlignment="Top" Width="126" BorderBrush="White" Background="#21645d" Click="btnActualizarProductor_Click" Height="35" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
+                <Button x:Name="btnEliminarProductor" Content="Eliminar" HorizontalAlignment="Left" Margin="317,340,0,0" VerticalAlignment="Top" Width="126" Background="#21645d" BorderBrush="White" Click="btnEliminarProductor_Click" Height="35" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
+                <Button x:Name="btnSalirProductor" Content="Volver" HorizontalAlignment="Left" Margin="32,343,0,0" VerticalAlignment="Top" Width="83" BorderBrush="White" Background="White" Click="btnSalirProductor_Click" Height="32" FontSize="15" RenderTransformOrigin="0.459,0.576" Grid.Row="1"/>
 
 
-                <Image HorizontalAlignment="Left" Height="209" Margin="-26,1,0,0" VerticalAlignment="Top" Width="207" Source="imagenes/LogoFeriaVirtual.png" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2"/>
-                <Button x:Name="btnLimpiaProductorr" Content="Limpiar" HorizontalAlignment="Left" Margin="557,334,0,0" VerticalAlignment="Top" Width="91" Click="btnLimpiarProductor_Click" Height="38" Background="#21645d" BorderBrush="White" Foreground="White" Grid.Row="1" FontSize="15"/>
+                <Image HorizontalAlignment="Left" Height="209" Margin="548,-14,0,0" VerticalAlignment="Top" Width="207" Source="imagenes/LogoFeriaVirtual.png" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2"/>
+                <Button x:Name="btnLimpiaProductorr" Content="Limpiar" HorizontalAlignment="Left" Margin="457,91,0,0" VerticalAlignment="Top" Width="91" Click="btnLimpiarProductor_Click" Height="38" Background="#21645d" BorderBrush="White" Foreground="White" Grid.Row="1" FontSize="15"/>
 
-                <Label Content="RUT" HorizontalAlignment="Left" Margin="181,28,0,0" VerticalAlignment="Top" FontSize="18" Height="41" Grid.RowSpan="2"/>
-                <Label Content="Nombres" HorizontalAlignment="Left" Margin="176,47,0,0" VerticalAlignment="Top" FontSize="16" Height="34" Grid.Row="1"/>
-                <Label Content="Apellidos" HorizontalAlignment="Left" Margin="176,96,0,0" VerticalAlignment="Top" FontSize="16" Height="36" Grid.Row="1"/>
-                <Label Content="Direccion" HorizontalAlignment="Left" Margin="175,144,0,0" VerticalAlignment="Top" FontSize="16" Height="36" Grid.Row="1"/>
-                <Label Content="Telefono" HorizontalAlignment="Left" Margin="175,195,0,0" VerticalAlignment="Top" FontSize="16" Height="34" Grid.Row="1"/>
-                <Label Content="Correo Electronico" HorizontalAlignment="Left" Margin="176,243,0,0" VerticalAlignment="Top" FontSize="16" Height="34" Grid.Row="1"/>
+                <Label Content="RUT" HorizontalAlignment="Left" Margin="10,28,0,0" VerticalAlignment="Top" FontSize="20" Height="41" Grid.RowSpan="2"/>
+                <Label Content="Nombres" HorizontalAlignment="Left" Margin="0,37,0,0" VerticalAlignment="Top" FontSize="20" Height="34" Grid.Row="1"/>
+                <Label Content="Apellidos" HorizontalAlignment="Left" Margin="1,82,0,0" VerticalAlignment="Top" FontSize="20" Height="36" Grid.Row="1"/>
+                <Label Content="Direccion" HorizontalAlignment="Left" Margin="0,119,0,0" VerticalAlignment="Top" FontSize="20" Height="36" Grid.Row="1"/>
+                <Label Content="Telefono" HorizontalAlignment="Left" Margin="0,162,0,0" VerticalAlignment="Top" FontSize="20" Height="34" Grid.Row="1"/>
+                <Label Content="Correo Electronico" HorizontalAlignment="Left" Margin="0,237,0,0" VerticalAlignment="Top" FontSize="20" Height="34" Grid.Row="1"/>
+                <Label Content="Region" HorizontalAlignment="Left" Margin="0,201,0,0" VerticalAlignment="Top" FontSize="20" Height="34" Grid.Row="1"/>
 
-                <TextBox x:Name="txtRutProductor" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese RUT" Height="34" Margin="320,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <TextBox x:Name="txtApellidos" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese apellidos" Height="34" Margin="320,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <TextBox x:Name="txtNombreProductor" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese nombres" Height="34" Margin="320,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese correo electrónico" Height="34" Margin="320,243,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" RenderTransformOrigin="0.549,0.559" Grid.Row="1"/>
-                <TextBox x:Name="txtDireccion" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese dirección" Height="34" Margin="320,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <TextBox x:Name="txtTelefono" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese teléfono" Height="34" Margin="320,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtRutProductor" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese RUT" Height="34" Margin="115,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtApellidos" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese apellidos" Height="34" Margin="115,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtNombreProductor" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese nombres" Height="34" Margin="115,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese correo electrónico" Height="34" Margin="182,237,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261" BorderBrush="#FF1E1E28" FontSize="14" RenderTransformOrigin="0.549,0.559" Grid.Row="1"/>
+                <TextBox x:Name="txtDireccion" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese dirección" Height="34" Margin="115,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtTelefono" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese teléfono" Height="34" Margin="115,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <ComboBox x:Name="cboregion" HorizontalAlignment="Left" Margin="115,202,0,0" Grid.Row="1" VerticalAlignment="Top" Controls:TextBoxHelper.Watermark="Ingrese Region" Width="328" BorderBrush="Black" Loaded="cboregion_Loaded" Height="31"/>
 
                 <Separator HorizontalAlignment="Left" Height="19" Margin="469,209,0,0" VerticalAlignment="Top" Width="398" RenderTransformOrigin="0.5,0.5">
                     <Separator.RenderTransform>
@@ -156,7 +158,7 @@
                         </TransformGroup>
                     </Separator.RenderTransform>
                 </Separator>
-                <DataGrid x:Name="dgvListado" HorizontalAlignment="Left" Height="281" VerticalAlignment="Top" Width="275" Margin="687,87,0,0" RenderTransformOrigin="0.5,0.5" SelectionChanged="dgvListado_SelectionChanged" Loaded="dgvListado_Loaded" Grid.Row="1">
+                <DataGrid x:Name="dgvListado" HorizontalAlignment="Left" Height="243" VerticalAlignment="Top" Width="372" Margin="459,137,0,0" RenderTransformOrigin="0.5,0.5" SelectionChanged="dgvListado_SelectionChanged" Loaded="dgvListado_Loaded" Grid.Row="1">
                     <DataGrid.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
