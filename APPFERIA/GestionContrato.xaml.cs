@@ -73,7 +73,7 @@ namespace interfazGrafica
                     cmd.Parameters.Add("ID_CONTRATO", OracleDbType.Int32, 6).Value = int.Parse(txtidContrato.Text);
                     cmd.Parameters.Add("FECHA_INGRESO", OracleDbType.Date).Value = Convert.ToDateTime(DateTime.Now.ToShortDateString());
                     cmd.Parameters.Add("FECHA_TERMINO", OracleDbType.Date).Value = DpickerTermino.SelectedDate;
-                    cmd.Parameters.Add("VIGENCIA", OracleDbType.Char).Value = true;
+                    cmd.Parameters.Add("VIGENCIA", OracleDbType.Char).Value = 1;
                     cmd.Parameters.Add("RUT_PRO", OracleDbType.Varchar2, 20).Value = cboNombreProductor.SelectedItem;
                     cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 20).Value = cboNombreCliente.SelectedItem;
                     cmd.Parameters.Add("OBSERVACIONES", OracleDbType.Varchar2, 255).Value = txtObservaciones.Text;
@@ -108,9 +108,9 @@ namespace interfazGrafica
                     this.listar();
                 }
             }
-            catch (Exception expe)
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
 
             }
         }

@@ -69,16 +69,24 @@ namespace interfazGrafica
         {
             OracleCommand cmd = con.CreateCommand();
 
-            cmd.CommandText = "SELECT d.id_pedido, c.nombre, p.nombre_producto, d.cantidad, d.valor FROM detalle_pedido d inner join pedido pe on pe.id_pedido = d.id_pedido inner join producto p on p.id_producto = d.id_producto  join cliente c on pe.rut_cli=c.rut_cli where pe.id_pedido = " + "'" + idventa + "'";
+            cmd.CommandText = "SELECT DISTINCT(d.id_pedido), c.nombre, pe.fecha_envio FROM detalle_pedido d inner join pedido pe on pe.id_pedido = d.id_pedido inner join producto p on p.id_producto = d.id_producto  join cliente c on pe.rut_cli=c.rut_cli where pe.id_pedido = " + "'" + idventa + "'";
             cmd.CommandType = CommandType.Text;
             OracleDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Load(dr);
             dataGrid.ItemsSource = dt.DefaultView;
-            dataGriddetalle.ItemsSource = "";
             dr.Close();
+            OracleCommand cmr = con.CreateCommand();
 
-           
+            cmr.CommandText = "SELECT d.id_pedido, p.nombre_producto, d.cantidad, d.valor FROM detalle_pedido d inner join pedido pe on pe.id_pedido = d.id_pedido inner join producto p on p.id_producto = d.id_producto  join cliente c on pe.rut_cli=c.rut_cli where pe.id_pedido = " + "'" + idventa + "'";
+            cmr.CommandType = CommandType.Text;
+            OracleDataReader rr = cmr.ExecuteReader();
+            DataTable dt2 = new DataTable();
+            dt2.Load(rr);
+            dataGriddetalle.ItemsSource = dt2.DefaultView;
+            rr.Close();
+
+
         }
 
         private void txtidventa_SelectionChanged(object sender, RoutedEventArgs e)
@@ -99,21 +107,21 @@ namespace interfazGrafica
         }
         public void listarPedido()
         {
-            OracleCommand cmd = con.CreateCommand();
+            OracleCommand cmd1 = con.CreateCommand();
 
-            cmd.CommandText = "SELECT p.id_pedido, p.fecha_ingreso, p.fecha_envio, c.rut_cli, c.nombre||' '||c.apellido as NOMBRE_CLIENTE from pedido p INNER JOIN CLIENTE C on c.rut_cli = p.rut_cli";
-            cmd.CommandType = CommandType.Text;
-            OracleDataReader dr = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(dr);
-            dataGrid.ItemsSource = dt.DefaultView;
-            dr.Close();
+            cmd1.CommandText = "SELECT p.id_pedido, p.fecha_ingreso, p.fecha_envio, c.rut_cli, c.nombre||' '||c.apellido as NOMBRE_CLIENTE from pedido p INNER JOIN CLIENTE C on c.rut_cli = p.rut_cli where p.id_pedido = " + "'" + txtidventa.Text + "'";
+            cmd1.CommandType = CommandType.Text;
+            OracleDataReader dg = cmd1.ExecuteReader();
+            DataTable db = new DataTable();
+            db.Load(dg);
+            dataGrid.ItemsSource = db.DefaultView;
+            dg.Close();
         }
         public void listarDetalle()
         {
             OracleCommand cmd = con.CreateCommand();
 
-            cmd.CommandText = "SELECT d.id_pedido, p.nombre_producto, d.cantidad, d.valor FROM DETALLE_PEDIDO D INNER JOIN PRODUCTO P ON P.ID_PRODUCTO = D.ID_PRODUCTO";
+            cmd.CommandText = "SELECT d.id_pedido, p.nombre_producto, d.cantidad, d.valor FROM DETALLE_PEDIDO D INNER JOIN PRODUCTO P ON P.ID_PRODUCTO = D.ID_PRODUCTO where d.id_pedido = " + "'" + txtidventa.Text + "'";
             cmd.CommandType = CommandType.Text;
             OracleDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
@@ -153,6 +161,7 @@ namespace interfazGrafica
             {
                 GestionVenta ven = new GestionVenta();
                 this.Close();
+                ven.txtidventa.Text = txtidventa.Text;
                 ven.ShowDialog();
             }
             else
@@ -175,5 +184,7 @@ namespace interfazGrafica
                 MessageBox.Show("Debe elegir un id venta existente.");
             }
         }
+
+        
     }
 }

@@ -240,6 +240,7 @@
     <Compile Include="GestionTransportista.xaml.cs">
       <DependentUpon>GestionTransportista.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MyDialog.cs" />
     <Compile Include="VisualizarPujas.xaml.cs">
       <DependentUpon>VisualizarPujas.xaml</DependentUpon>
     </Compile>
@@ -462,6 +463,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagenes\subasta.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagenes\check.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

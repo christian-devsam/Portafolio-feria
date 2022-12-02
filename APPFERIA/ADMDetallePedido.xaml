@@ -6,11 +6,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:interfazGrafica"
         mc:Ignorable="d"
-        Title="ADMDetallePedido" Height="296.25" Width="578.75"
+        Title="ADMDetallePedido" Height="534.25" Width="981.75"
         ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen"
-                      Background="Transparent" AllowsTransparency="True" 
-                      MouseDown="Window_MouseDown" WindowStyle="None" >
+                      Background="Transparent" AllowsTransparency="True" WindowStyle="None" Icon="/imagenes/LogoFeriaVirtual.png" >
     <Border CornerRadius="6" Margin="0,0,10,10">
         <Border.Background>
             <ImageBrush ImageSource="/imagenes/LogoFeriaVirtual.png"
@@ -18,7 +17,7 @@
         </Border.Background>
         <Border CornerRadius="6"
                 BorderThickness="2"
-                Opacity="0.95" Margin="0,0,-13,0">
+                Opacity="0.95">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#21645d" Offset="0"/>
@@ -112,20 +111,26 @@
                         </Button.Template>
                     </Button>
                 </Grid>
-                <Image HorizontalAlignment="Left" Height="204" Margin="-16,16,0,0" VerticalAlignment="Top" Width="236" Source="imagenes/LogoFeriaVirtual.png" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2"/>
+                <Image HorizontalAlignment="Left" Height="255" Margin="-21,10,0,0" VerticalAlignment="Top" Width="334" Source="imagenes/LogoFeriaVirtual.png" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2"/>
 
 
-                <Label Content="Nombre Producto  :" HorizontalAlignment="Left" Foreground="Black" FontWeight="Bold" Margin="155,54,0,0" VerticalAlignment="Top" FontSize="16" Height="37" Grid.Row="1"/>
-                <ComboBox x:Name="cboProductos" HorizontalAlignment="Left" VerticalAlignment="Top" Controls:TextBoxHelper.Watermark="Seleccione nombre del producto" Width="216" Margin="314,57,0,0" Grid.Row="1" BorderBrush="#FF1E1E28" Loaded="cboProductos_loaded" Height="32"/>
-                <Label Content="Cantidad Producto :" HorizontalAlignment="Left" Foreground="Black" FontWeight="Bold" Margin="154,94,0,0" VerticalAlignment="Top" FontSize="16" Height="31" Grid.Row="1"/>
-                <TextBox x:Name="txtcantidadProducto" HorizontalAlignment="Left" Controls:TextBoxHelper.Watermark="Ingrese Cantidad Productos" Height="29" Margin="314,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1" />
-                <Button x:Name="btnIngresarDetallePedido" Content="Agregar" HorizontalAlignment="Left" Margin="447,194,0,0" VerticalAlignment="Top" Width="93" Background="#21645d" BorderBrush="White" Click="BtnAgregarVenta_Click" Height="34" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
-                <Button x:Name="btnActualizar" Content="Modificar" HorizontalAlignment="Left" Margin="331,194,0,0" VerticalAlignment="Top" Width="111" BorderBrush="White" Background="#21645d" Click="btnActualizarVenta_Click" Height="35" FontSize="15" BorderThickness="2" FontWeight="Bold" Foreground="White" Grid.Row="1"/>
-                <Button x:Name="btnTerminar" Content="Cancelar" HorizontalAlignment="Left" Margin="233,194,0,0" VerticalAlignment="Top" Width="93" Background="#21645d" BorderBrush="White" Click="btnTerminarVenta_Click" Height="35" FontSize="15" BorderThickness="2" FontWeight="Bold" Foreground="White" Grid.Row="1"/>
-                <Button x:Name="btnListo" Content="Listo" HorizontalAlignment="Left" Margin="10,194,0,0" VerticalAlignment="Top" Width="93" Background="#21645d" BorderBrush="White" Click="BtnListo_Click" Height="34" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
-                <Label Content="Un/Kg" HorizontalAlignment="Left" Foreground="Black" FontWeight="Bold" Margin="480,96,0,0" VerticalAlignment="Top" FontSize="16" Height="31" Grid.Row="1" RenderTransformOrigin="0.491,-0.226"/>
-                <Button x:Name="btnLimpiar" Content="Limpiar" HorizontalAlignment="Left" Margin="480,137,0,0" VerticalAlignment="Top" Width="60" Click="btnLimpiar_Click" Height="29" Background="#21645d" FontSize="10" BorderBrush="#FF1E1E28" Foreground="White" Grid.Row="1"/>
-                <TextBox x:Name="txtidventa" HorizontalAlignment="Left" Controls:TextBoxHelper.Watermark="id venta" Height="29" Margin="314,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" BorderBrush="#FF1E1E28" FontSize="14" SelectionBrush="#FF33A133" Grid.Row="1" />
+
+                <Label Content="Nombre Producto  :" HorizontalAlignment="Left" Foreground="Black" FontWeight="Bold" Margin="258,30,0,0" VerticalAlignment="Top" FontSize="20" Height="46" Grid.Row="1" Width="201"/>
+                <Label Content="Cantidad Producto :" HorizontalAlignment="Left" Foreground="Black" FontWeight="Bold" Margin="258,79,0,0" VerticalAlignment="Top" FontSize="20" Height="38" Grid.Row="1" Width="209"/>
+                <TextBox x:Name="txtcantidadProducto" HorizontalAlignment="Left" Controls:TextBoxHelper.Watermark="Ingrese Cantidad Productos" Height="39" Margin="485,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1" />
+                <Button x:Name="btnIngresarDetallePedido" Content="Agregar" HorizontalAlignment="Left" Margin="807,415,0,0" VerticalAlignment="Top" Width="120" Background="#21645d" BorderBrush="White" Click="BtnAgregarVenta_Click" Height="49" FontSize="20" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
+                <Button x:Name="btnActualizar" Content="Modificar" HorizontalAlignment="Left" Margin="644,415,0,0" VerticalAlignment="Top" Width="131" BorderBrush="White" Background="#21645d" Click="btnActualizarVenta_Click" Height="49" FontSize="20" BorderThickness="2" FontWeight="Bold" Foreground="White" Grid.Row="1"/>
+                <Button x:Name="btnTerminar" Content="Cancelar" HorizontalAlignment="Left" Margin="40,239,0,0" VerticalAlignment="Top" Width="127" Background="#21645d" BorderBrush="White" Click="btnTerminarVenta_Click" Height="60" FontSize="20" BorderThickness="2" FontWeight="Bold" Foreground="White" Grid.Row="1"/>
+   
+                <Button x:Name="btnLimpiar" Content="Limpiar" HorizontalAlignment="Left" Margin="823,123,0,0" VerticalAlignment="Top" Width="104" Background="#21645d" BorderBrush="White"  Height="37" Click="btnLimpiar_Click" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
+                <Label Content="Un/Kg" HorizontalAlignment="Left" Foreground="Black" FontWeight="Bold" Margin="755,79,0,0" VerticalAlignment="Top" FontSize="20" Height="39" Grid.Row="1" RenderTransformOrigin="0.491,-0.226" Width="82"/>
+                <Button x:Name="btnListo" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="174" Click="BtnListo_Click" Height="93" Background="Transparent" BorderBrush="Transparent" Foreground="White" Grid.Row="1">
+                    <Image Source="imagenes/check.png"></Image>
+                </Button>
+
+                <TextBox x:Name="txtidventa" HorizontalAlignment="Left" Controls:TextBoxHelper.Watermark="id venta" Height="29" Margin="313,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" BorderBrush="#FF1E1E28" FontSize="14" SelectionBrush="#FF33A133" Grid.Row="1" Visibility="Hidden"/>
+                <ComboBox x:Name="cboproductos" HorizontalAlignment="Left" VerticalAlignment="Top" Width="335" Margin="485,30,0,0" Grid.Row="1" Height="37" BorderBrush="Black" Loaded="cboproductos_Loaded"/>
+                <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="214" VerticalAlignment="Top" Width="702" Margin="225,181,0,0" Grid.Row="1" SelectionChanged="dataGrid_SelectionChanged" Loaded="dataGrid_Loaded"/>
 
             </Grid>
 

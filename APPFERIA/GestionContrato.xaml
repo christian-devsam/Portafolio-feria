@@ -12,7 +12,7 @@
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen"
                       Background="Transparent" AllowsTransparency="True" 
-                      MouseDown="Window_MouseDown" WindowStyle="None" Loaded="gestionContrato_Loaded" >
+                      MouseDown="Window_MouseDown" WindowStyle="None" Loaded="gestionContrato_Loaded" Icon="/imagenes/LogoFeriaVirtual.png" >
 
     <Border CornerRadius="12">
         <Border.Background>

@@ -339,6 +339,7 @@ namespace interfazGrafica
         {
             VisualizarPujas v1 = new VisualizarPujas();
             this.Close();
+            v1.txtid.Text = txtidSubasta.Text;
             v1.ShowDialog();
         }
 

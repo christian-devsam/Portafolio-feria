@@ -55,7 +55,7 @@ namespace interfazGrafica
             
             OracleCommand cmd = con.CreateCommand();
 
-            cmd.CommandText = "select p.ID_SUBASTA, t.NOMBRE, p.VALOR from puja p join transportista t on p.id_transportista = t.id_transportista";
+            cmd.CommandText = "select p.ID_SUBASTA, t.NOMBRE, p.VALOR from puja p join transportista t on p.id_transportista = t.id_transportista where p.id_subasta = " + "'" + txtid.Text + "'";
             cmd.CommandType = CommandType.Text;
             OracleDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
@@ -103,5 +103,8 @@ namespace interfazGrafica
             this.Close();
             v2.ShowDialog();
         }
+        
+        
+        
     }
 }
