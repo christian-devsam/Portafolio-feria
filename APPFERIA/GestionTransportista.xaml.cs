@@ -186,7 +186,7 @@ namespace interfazGrafica
         {
             OracleCommand cmd = con.CreateCommand();
 
-            cmd.CommandText = "SELECT ID_TRANSPORTISTA, NOMBRE , TELEFONO, CORREO FROM TRANSPORTISTA";
+            cmd.CommandText = "SELECT T.ID_TRANSPORTISTA, T.NOMBRE, T.APELLIDO, T.TELEFONO, T.CORREO, lc.nombre AS LICENCIA FROM TRANSPORTISTA T INNER JOIN licencia_conducir LC ON t.id_licencia = lc.id_licencia";
             cmd.CommandType = CommandType.Text;
             OracleDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
@@ -240,9 +240,7 @@ namespace interfazGrafica
                 txtNombreTransportista.Text = dr["NOMBRE"].ToString();
                 txtApellidoTransportista.Text = dr["APELLIDO"].ToString();
                 txtTelefonotransportista.Text = dr["TELEFONO"].ToString();
-                cboLicencia.SelectedValue = dr["ID_LICENCIA"].ToString();
-                txtUsuario.Text = dr["USUARIO"].ToString();
-                txtContrasenia.Text = dr["CONTRASENIA"].ToString();
+                cboLicencia.Text = dr["LICENCIA"].ToString();
                 txtEmailTransportista.Text = dr["CORREO"].ToString();
             }
 

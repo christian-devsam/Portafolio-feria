@@ -94,6 +94,7 @@ namespace interfazGrafica
                     cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 50).Value = txtEmail.Text;
                     cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 20).Value = txtUsuario.Text;
                     cmd.Parameters.Add("CONTRASENIA", OracleDbType.Varchar2, 20).Value = txtContrasenia.Text;
+                    cmd.Parameters.Add("ID_CLIENTE", OracleDbType.Int32, 10).Value = int.Parse(txtidcliente.Text);
                     cmd.Parameters.Add("ID_PAIS", OracleDbType.Int32, 10).Value = 1;
                     cmd.Parameters.Add("REGION_ID", OracleDbType.Int32, 10).Value = cboregion.SelectedValue;
                     cmd.Parameters.Add("PROVINCIA_ID", OracleDbType.Int32, 10).Value = cboprovincia.SelectedValue;
@@ -108,10 +109,14 @@ namespace interfazGrafica
                     cmd.Parameters.Add("APELLIDO", OracleDbType.Varchar2, 50).Value = txtApellidoPatCliente.Text;                   
                     cmd.Parameters.Add("DIRECCION", OracleDbType.Varchar2, 50).Value = txtDireccionCliente.Text;
                     cmd.Parameters.Add("TELEFONO", OracleDbType.Int32, 10).Value = int.Parse(txtTelefonoCliente.Text);                    
-                    cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 50).Value = txtEmail.Text;
-                    cmd.Parameters.Add("COMUNA", OracleDbType.Varchar2, 50).Value = cboComuna.SelectedValue;
+                    cmd.Parameters.Add("CORREO", OracleDbType.Varchar2, 50).Value = txtEmail.Text;                    
                     cmd.Parameters.Add("USUARIO", OracleDbType.Varchar2, 20).Value = txtUsuario.Text;
                     cmd.Parameters.Add("CONTRASENIA", OracleDbType.Varchar2, 20).Value = txtContrasenia.Text;
+                    cmd.Parameters.Add("ID_CLIENTE", OracleDbType.Int32, 10).Value = int.Parse(txtidcliente.Text);
+                    cmd.Parameters.Add("ID_PAIS", OracleDbType.Int32, 10).Value = 1;
+                    cmd.Parameters.Add("REGION_ID", OracleDbType.Int32, 10).Value = cboregion.SelectedValue;
+                    cmd.Parameters.Add("PROVINCIA_ID", OracleDbType.Int32, 10).Value = cboprovincia.SelectedValue;
+                    cmd.Parameters.Add("ID_COMUNA", OracleDbType.Int32, 10).Value = cboComuna.SelectedValue;
                     cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 20).Value = txtRutCliente.Text;
                     
 
@@ -142,7 +147,7 @@ namespace interfazGrafica
             {
 
             
-            String sql = "INSERT INTO CLIENTE (RUT_CLI, ID_TIPOCLIENTE, NOMBRE, APELLIDO, DIRECCION, TELEFONO, CORREO, USUARIO, CONTRASENIA, ID_PAIS, REGION_ID, PROVINCIA_ID, ID_COMUNA )" + "VALUES( :RUT_CLI, :ID_TIPOCLIENTE, :NOMBRE, :APELLIDO, :DIRECCION, :TELEFONO, :CORREO, :USUARIO, :CONTRASENIA, :ID_PAIS, :REGION_ID, :PROVINCIA_ID, :ID_COMUNA)";
+            String sql = "INSERT INTO CLIENTE (RUT_CLI, ID_TIPOCLIENTE, NOMBRE, APELLIDO, DIRECCION, TELEFONO, CORREO, USUARIO, CONTRASENIA, ID_CLIENTE, ID_PAIS, REGION_ID, PROVINCIA_ID, ID_COMUNA )" + "VALUES( :RUT_CLI, :ID_TIPOCLIENTE, :NOMBRE, :APELLIDO, :DIRECCION, :TELEFONO, :CORREO, :USUARIO, :CONTRASENIA, :ID_CLIENTE, :ID_PAIS, :REGION_ID, :PROVINCIA_ID, :ID_COMUNA)";
             this.AUD(sql, 0);
 
             btnAgregar.IsEnabled = false;
@@ -179,7 +184,7 @@ namespace interfazGrafica
         {
             try
             {
-                String sql = "UPDATE CLIENTE SET ID_TIPOCLIENTE = :ID_TIPOCLIENTE," + "NOMBRE =:NOMBRE, APELLIDO =:APELLIDO, DIRECCION =:DIRECCION, TELEFONO =:TELEFONO, CORREO =:CORREO, COMUNA =:COMUNA, USUARIO =:USUARIO, CONTRASENIA=:CONTRASENIA " +
+                String sql = "UPDATE CLIENTE SET ID_TIPOCLIENTE = :ID_TIPOCLIENTE," + "NOMBRE =:NOMBRE, APELLIDO =:APELLIDO, DIRECCION =:DIRECCION, TELEFONO =:TELEFONO, CORREO =:CORREO, USUARIO =:USUARIO, CONTRASENIA=:CONTRASENIA, ID_CLIENTE =: ID_CLIENTE, ID_PAIS =:ID_PAIS, REGION_ID =:REGION_ID, PROVINCIA_ID=:PROVINCIA_ID, ID_COMUNA=:ID_COMUNA " +
                             "WHERE RUT_CLI = :RUT_CLI";
                 this.AUD(sql, 1);
             }
@@ -236,13 +241,10 @@ namespace interfazGrafica
                 cboComuna.Text = dr["ID_COMUNA"].ToString();
                 txtUsuario.Text = dr["USUARIO"].ToString();
                 txtContrasenia.Text = dr["CONTRASENIA"].ToString();
+                txtidcliente.Text = dr["ID_CLIENTE"].ToString();
+
+
                 
-
-
-                btnAgregar.IsEnabled = false;
-                btnTerminar.IsEnabled = true;
-                btnActualizar.IsEnabled = true;
-
 
             }
         }
@@ -252,17 +254,21 @@ namespace interfazGrafica
         }
         private void limpiar()
         {
+            
             txtRutCliente.Text = "";
+            cboTipoCliente.Text = "";
             txtNombreCliente.Text = "";
             txtApellidoPatCliente.Text = "";
             txtTelefonoCliente.Text = "";
             txtDireccionCliente.Text = "";
             cboComuna.Text = "";
             txtEmail.Text = "";
+            txtUsuario.Text = "";
+            txtContrasenia.Text = "";
+            cboregion.Text = "";
+            cboprovincia.Text = "";
+            cboComuna.Text = "";
 
-            btnAgregar.IsEnabled = true;
-            btnTerminar.IsEnabled = false;
-            btnActualizar.IsEnabled = false;
 
         }
         
@@ -283,38 +289,38 @@ namespace interfazGrafica
                 DragMove();
         }
 
-        private void enviarCorreo()
-        {
-            System.Net.Mail.MailMessage correo = new System.Net.Mail.MailMessage();
-            correo.From = new System.Net.Mail.MailAddress("feriavirtualmg1@gmail.com", "Maipo Grande", System.Text.Encoding.UTF8);//Correo de salida
-            correo.To.Add(txtEmail.Text); //Correo destino?
-            correo.Subject = "Informacion"; //Asunto
-            correo.Body = "¡ FELICIDADES ! El cliente se registro exitosamente en la feria virtual de maipo grande."; //Mensaje del correo
-            correo.IsBodyHtml = true;
-            correo.Priority = MailPriority.Normal;
-            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
-            smtp.UseDefaultCredentials = false;
-            smtp.Host = "smtp.gmail.com"; //Host del servidor de correo
-            smtp.Port = 25; //Puerto de salida
-            smtp.Credentials = new System.Net.NetworkCredential("feriavirtualmg1@gmail.com", "hantmgmsgkvsljkm");//Cuenta de correo
-            ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
-            smtp.EnableSsl = true;//True si el servidor de correo permite ssl
+        //private void enviarCorreo()
+        //{
+        //    System.Net.Mail.MailMessage correo = new System.Net.Mail.MailMessage();
+        //    correo.From = new System.Net.Mail.MailAddress("feriavirtualmg1@gmail.com", "Maipo Grande", System.Text.Encoding.UTF8);//Correo de salida
+        //    correo.To.Add(txtEmail.Text); //Correo destino?
+        //    correo.Subject = "Informacion"; //Asunto
+        //    correo.Body = "¡ FELICIDADES ! El cliente se registro exitosamente en la feria virtual de maipo grande."; //Mensaje del correo
+        //    correo.IsBodyHtml = true;
+        //    correo.Priority = MailPriority.Normal;
+        //    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
+        //    smtp.UseDefaultCredentials = false;
+        //    smtp.Host = "smtp.gmail.com"; //Host del servidor de correo
+        //    smtp.Port = 25; //Puerto de salida
+        //    smtp.Credentials = new System.Net.NetworkCredential("feriavirtualmg1@gmail.com", "hantmgmsgkvsljkm");//Cuenta de correo
+        //    ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
+        //    smtp.EnableSsl = true;//True si el servidor de correo permite ssl
             
-            try
-            {
-                smtp.Send(correo);
-                MessageBox.Show("Correo enviado exitosamente");
-            }
-            catch (Exception ex)
-            {
+        //    try
+        //    {
+        //        smtp.Send(correo);
+        //        MessageBox.Show("Correo enviado exitosamente");
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                MessageBox.Show(ex.Message);
-            }
-        }
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
 
         private void cboTipoCliente_Loaded(object sender, RoutedEventArgs e)
         {
-            OracleCommand cmd1 = new OracleCommand("SELECT ID_TIPOCLIENTE, NOMBRE FROM TIPO_CLIENTE", con);
+            OracleCommand cmd1 = new OracleCommand("SELECT ID_TIPOCLIENTE, DESCRIPCION FROM TIPO_CLIENTE", con);
 
             OracleDataReader re = cmd1.ExecuteReader();
         
@@ -324,7 +330,7 @@ namespace interfazGrafica
 
             cboTipoCliente.ItemsSource = data;
 
-            cboTipoCliente.DisplayMemberPath = dt.Columns["NOMBRE"].ToString();
+            cboTipoCliente.DisplayMemberPath = dt.Columns["DESCRIPCION"].ToString();
             cboTipoCliente.SelectedValuePath = dt.Columns["ID_TIPOCLIENTE"].ToString();
             //cboTipoCliente.ItemsSource = data;
             //cbox_alumnos.ItemsSource = ds.Tables["Alumno"].DefaultView;
@@ -391,7 +397,15 @@ namespace interfazGrafica
             cargarComuna();
         }
 
-       
+        private void txtidcliente_Loaded(object sender, RoutedEventArgs e)
+        {
+            OracleCommand cmd1 = new OracleCommand("select max(ID_CLIENTE)+1 as ID_CLIENTE from CLIENTE", con);
+            OracleDataReader re = cmd1.ExecuteReader();
+
+            DataTable dt = new DataTable();
+            dt.Load(re);
+            txtidcliente.Text = dt.Rows[0][0].ToString();
+        }
     }
 }
 

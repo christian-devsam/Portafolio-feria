@@ -71,7 +71,7 @@ namespace interfazGrafica
                 case 0:
                     msg = "Contrato Agregado!";
                     cmd.Parameters.Add("ID_CONTRATO", OracleDbType.Int32, 6).Value = int.Parse(txtidContrato.Text);
-                    cmd.Parameters.Add("FECHA_INGRESO", OracleDbType.Date).Value = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                    cmd.Parameters.Add("FECHA_INICIO", OracleDbType.Date).Value = Convert.ToDateTime(DateTime.Now.ToShortDateString());
                     cmd.Parameters.Add("FECHA_TERMINO", OracleDbType.Date).Value = DpickerTermino.SelectedDate;
                     cmd.Parameters.Add("VIGENCIA", OracleDbType.Char).Value = 1;
                     cmd.Parameters.Add("RUT_PRO", OracleDbType.Varchar2, 20).Value = cboNombreProductor.SelectedItem;
@@ -82,7 +82,7 @@ namespace interfazGrafica
                 case 1:
                     msg = "Contrato modificado! ";
                     
-                    cmd.Parameters.Add("FECHA_INGRESO", OracleDbType.Date).Value = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                    cmd.Parameters.Add("FECHA_INICIO", OracleDbType.Date).Value = Convert.ToDateTime(DateTime.Now.ToShortDateString());
                     cmd.Parameters.Add("FECHA_TERMINO", OracleDbType.Date).Value = DpickerTermino.SelectedDate;
                     cmd.Parameters.Add("VIGENCIA", OracleDbType.Char).Value = true;
                     cmd.Parameters.Add("RUT_PRO", OracleDbType.Varchar2, 20).Value = cboNombreProductor.SelectedItem;
@@ -121,6 +121,8 @@ namespace interfazGrafica
             {
                 String sql = "INSERT INTO CONTRATO (ID_CONTRATO, FECHA_INICIO, FECHA_TERMINO, VIGENCIA, RUT_PRO, RUT_CLI, OBSERVACIONES )" + " VALUES(:ID_CONTRATO, :FECHA_INICIO, :FECHA_TERMINO, :VIGENCIA, :RUT_PRO, :RUT_CLI, :OBSERVACIONES )";
                 this.AUD(sql, 0);
+                this.Limpiar();
+                this.listar();
             }
             catch (Exception ex)
             {
@@ -137,6 +139,8 @@ namespace interfazGrafica
             {
                 String sql = "UPDATE CONTRATO SET FECHA_INICIO = :FECHA_INICIO," + "FECHA_TERMINO = :FECHA_TERMINO, VIGENCIA = :VIGENCIA, RUT_PRO = :RUT_PRO, RUT_CLI = :RUT_CLI, OBSERVACIONES = :OBSERVACIONES " + "WHERE ID_CONTRATO = :ID_CONTRATO";
                 this.AUD(sql, 1);
+                this.Limpiar();
+                this.listar();
             }
             catch (Exception ex)
             {
@@ -179,8 +183,8 @@ namespace interfazGrafica
         private void Limpiar()
         {
             txtidContrato.Text = "";
-            cboNombreProductor.SelectedValue = "";
-            cboNombreCliente.SelectedValue = "";
+            cboNombreProductor.Text = "";
+            cboNombreCliente.Text = "";
             DpickerTermino.ToString();
             txtObservaciones.Text = "";
         }
@@ -242,15 +246,13 @@ namespace interfazGrafica
             DataRowView dr = dg.SelectedItem as DataRowView;
             if (dr != null)
             {
-                txtidContrato.Text = dr["CODIGO"].ToString();
-                cboNombreCliente.SelectedValue = dr["RUT_CLI"].ToString();
-                cboNombreProductor.SelectedValue = dr["RUT_PRO"].ToString();
-                DpickerTermino.SelectedDate = Convert.ToDateTime(dr["TERMINO"]);
-                txtObservaciones.Text = dr["OBS"].ToString();
+                txtidContrato.Text = dr["ID_CONTRATO"].ToString();
+                cboNombreCliente.Text = dr["RUT_CLI"].ToString();
+                cboNombreProductor.Text = dr["RUT_PRO"].ToString();
+                DpickerTermino.SelectedDate = Convert.ToDateTime(dr["FECHA_TERMINO"]);
+                txtObservaciones.Text = dr["OBSERVACIONES"].ToString();
 
-                btnAgregar.IsEnabled = false;
-                btnTerminar.IsEnabled = true;
-                btnActualizar.IsEnabled = true;
+                
 
 
             }
@@ -277,35 +279,35 @@ namespace interfazGrafica
                 DragMove();
         }
 
-        private void enviarCorreo(string to, string idcontrato, string rutcliente, string rutpro, string termino, string obs)
-        {
+        //private void enviarCorreo(string to, string idcontrato, string rutcliente, string rutpro, string termino, string obs)
+        //{
             
-            System.Net.Mail.MailMessage correo = new System.Net.Mail.MailMessage();
-            correo.From = new System.Net.Mail.MailAddress("feriavirtualmg1@gmail.com", "Maipo Grande", System.Text.Encoding.UTF8);//Correo de salida
-            correo.To.Add(to); //Correo destino?
-            correo.Subject = "Informacion"; //Asunto
-            correo.Body = "Codigo Contrato : "+ idcontrato + "\n  "; //Mensaje del correo
-            correo.IsBodyHtml = true;
-            correo.Priority = MailPriority.Normal;
-            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
-            smtp.UseDefaultCredentials = false;
-            smtp.Host = "smtp.gmail.com"; //Host del servidor de correo
-            smtp.Port = 25; //Puerto de salida
-            smtp.Credentials = new System.Net.NetworkCredential("feriavirtualmg1@gmail.com", "hantmgmsgkvsljkm");//Cuenta de correo
-            ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
-            smtp.EnableSsl = true;//True si el servidor de correo permite ssl
+        //    System.Net.Mail.MailMessage correo = new System.Net.Mail.MailMessage();
+        //    correo.From = new System.Net.Mail.MailAddress("feriavirtualmg1@gmail.com", "Maipo Grande", System.Text.Encoding.UTF8);//Correo de salida
+        //    correo.To.Add(to); //Correo destino?
+        //    correo.Subject = "Informacion"; //Asunto
+        //    correo.Body = "Codigo Contrato : "+ idcontrato + "\n  "; //Mensaje del correo
+        //    correo.IsBodyHtml = true;
+        //    correo.Priority = MailPriority.Normal;
+        //    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
+        //    smtp.UseDefaultCredentials = false;
+        //    smtp.Host = "smtp.gmail.com"; //Host del servidor de correo
+        //    smtp.Port = 25; //Puerto de salida
+        //    smtp.Credentials = new System.Net.NetworkCredential("feriavirtualmg1@gmail.com", "hantmgmsgkvsljkm");//Cuenta de correo
+        //    ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
+        //    smtp.EnableSsl = true;//True si el servidor de correo permite ssl
 
-            try
-            {
-                smtp.Send(correo);
-                MessageBox.Show("Correo enviado exitosamente");
-            }
-            catch (Exception ex)
-            {
+        //    try
+        //    {
+        //        smtp.Send(correo);
+        //        MessageBox.Show("Correo enviado exitosamente");
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                MessageBox.Show(ex.Message);
-            }
-        }
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
 
         private void btnenviarCorreo_Click(object sender, RoutedEventArgs e)
         {
@@ -319,7 +321,7 @@ namespace interfazGrafica
             string correo = dt.Rows[0]["CORREO"].ToString();
             dr.Close();
             //corremos el metodo 
-            enviarCorreo(correo, txtidContrato.Text, cboNombreCliente.SelectedItem.ToString(), cboNombreProductor.SelectedItem.ToString(), DpickerTermino.Text, txtObservaciones.Text);
+            //enviarCorreo(correo, txtidContrato.Text, cboNombreCliente.SelectedItem.ToString(), cboNombreProductor.SelectedItem.ToString(), DpickerTermino.Text, txtObservaciones.Text);
         }
 
         private void txtidContrato_Loaded(object sender, RoutedEventArgs e)

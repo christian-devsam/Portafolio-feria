@@ -112,7 +112,6 @@
                         </Button.Template>
                     </Button>
                 </Grid>
-                <TextBox x:Name="txtidventa" HorizontalAlignment="Left" Controls:TextBoxHelper.Watermark="Ingrese id venta" Height="32" Margin="66,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" BorderBrush="#FF1E1E28" FontSize="14" SelectionBrush="#FF33A133" Grid.Row="1" SelectionChanged="txtidventa_SelectionChanged" />
 
                 <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="302,30,0,0" VerticalAlignment="Top" Width="128" Background="#21645d" BorderBrush="White" Click="BtnAgregar_Click" Height="53" FontSize="22" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
                 <Button x:Name="btnActualizar" Content="Actualizar" HorizontalAlignment="Left" Margin="632,30,0,0" VerticalAlignment="Top" Width="160" BorderBrush="White" Background="#21645d" Click="btnModificar_Click" Height="53" FontSize="22" BorderThickness="2" FontWeight="Bold" Foreground="White" Grid.Row="1"/>
@@ -126,6 +125,7 @@
                                FontSize="25"
                                FontFamily="Montserrat"/>
                 <Button x:Name="btnSalir" Content="VOLVER" HorizontalAlignment="Left" Margin="869,36,0,0" VerticalAlignment="Top" Width="135" BorderBrush="White" Background="White" Click="btnSalirGestionSubasta_Click" Height="44" FontSize="18" FontStyle="Italic" Grid.Row="1"/>
+                <ComboBox x:Name="txtidventa" HorizontalAlignment="Left" VerticalAlignment="Top" Width="101" Margin="47,9,0,0" Grid.Row="1" SelectionChanged="txtidventa_SelectionChanged" Height="60" Loaded="txtidventa_Loaded" BorderBrush="Black"/>
 
             </Grid>
 

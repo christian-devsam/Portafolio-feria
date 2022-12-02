@@ -157,6 +157,7 @@
                 <Label Content="Usuario &#xD;&#xA; " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="288,46,0,0" FontSize="15" Grid.Row="1"/>
                 <ComboBox x:Name="cboregion" HorizontalAlignment="Left" Margin="69,172,0,0" Grid.Row="1" Controls:TextBoxHelper.Watermark="Seleccionar region" VerticalAlignment="Top" Width="219" BorderBrush="Black" Loaded="cboregion_Loaded" SelectionChanged="cboregion_SelectionChanged"/>
                 <ComboBox x:Name="cboprovincia" HorizontalAlignment="Left" Margin="69,203,0,0" Grid.Row="1" VerticalAlignment="Top" Controls:TextBoxHelper.Watermark="Seleccionar Provincia" Width="219" BorderBrush="Black" SelectionChanged="cboprovincia_SelectionChanged" />
+                <TextBox x:Name="txtidcliente" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" Width="53" Margin="348,166,0,0" Grid.Row="1" Loaded="txtidcliente_Loaded" Visibility="Hidden"/>
 
 
 
