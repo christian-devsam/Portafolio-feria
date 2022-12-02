@@ -66,7 +66,7 @@ namespace interfazGrafica
             switch (state)
             {
                 case 0:
-                    msg = "Venta agregada!";
+                    msg = "Ingrese los Productos";
                     cmd.Parameters.Add("ID_PEDIDO", OracleDbType.Int32, 6).Value = int.Parse(txtidventa.Text);
                     cmd.Parameters.Add("FECHA_INGRESO", OracleDbType.Date).Value = Convert.ToDateTime(DateTime.Now.ToShortDateString());
                     cmd.Parameters.Add("FECHA_ENVIO", OracleDbType.Date).Value = DpickerFinal.SelectedDate;
@@ -76,19 +76,14 @@ namespace interfazGrafica
                     
 
                     break;
-                case 1:
-                    msg = "Venta modificado!";
-                    cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 20).Value = cboNombreCliente.SelectedValue.ToString();
-                    cmd.Parameters.Add("FECHA_INGRESO", OracleDbType.Date).Value = Convert.ToDateTime(DateTime.Now.ToShortDateString());
-                    cmd.Parameters.Add("FECHA_ENVIO", OracleDbType.Date).Value = DpickerFinal.SelectedDate;
-                    cmd.Parameters.Add("ID_PEDIDO", OracleDbType.Int32, 6).Value = int.Parse(txtidventa.Text);
+                //case 1:
+                //    msg = "Venta modificado!";
+                //    cmd.Parameters.Add("RUT_CLI", OracleDbType.Varchar2, 20).Value = cboNombreCliente.SelectedValue.ToString();
+                //    cmd.Parameters.Add("FECHA_INGRESO", OracleDbType.Date).Value = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                //    cmd.Parameters.Add("FECHA_ENVIO", OracleDbType.Date).Value = DpickerFinal.SelectedDate;
+                //    cmd.Parameters.Add("ID_PEDIDO", OracleDbType.Int32, 6).Value = int.Parse(txtidventa.Text);
 
-                    break;
-                case 2:
-                    msg = "Venta eliminado!";
-                    cmd.Parameters.Add("ID_PEDIDO", OracleDbType.Int32, 6).Value = int.Parse(txtidventa.Text);
-
-                    break;
+                //    break;
             }
             try
             {
@@ -114,19 +109,13 @@ namespace interfazGrafica
             try
             {
                 String sql = "INSERT INTO PEDIDO (ID_PEDIDO, FECHA_INGRESO, FECHA_ENVIO, RUT_CLI)" + "VALUES(:ID_PEDIDO, :FECHA_INGRESO, :FECHA_ENVIO, :RUT_CLI )";
-                string mensaje = this.AUD(sql, 0);
+                this.AUD(sql, 0);
 
-                if (mensaje == "Venta agregada!")
-                {
-                    ADMDetallePedido verdetalle = new ADMDetallePedido();
-                    this.Close();
-                    verdetalle.txtidventa.Text = txtidventa.Text;
-                    verdetalle.ShowDialog();
-                    
-
-                    
-                }
-               
+                ADMDetallePedido verdetalle = new ADMDetallePedido();
+                this.Close();
+                verdetalle.txtidventa.Text = txtidventa.Text;
+                verdetalle.ShowDialog();
+                  
             }
             catch (Exception ex)
             {
@@ -134,32 +123,40 @@ namespace interfazGrafica
             }
         }
 
-        private void btnActualizarVenta_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                String sql = "UPDATE PEDIDO SET RUT_CLI = :RUT_CLI," + "FECHA_INGRESO = :FECHA_INGRESO, FECHA_ENVIO = :FECHA_ENVIO " + "WHERE ID_PEDIDO = :ID_PEDIDO";
-                string respueta = this.AUD(sql, 1);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        //private void btnActualizarVenta_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        String sql = "UPDATE PEDIDO SET RUT_CLI = :RUT_CLI," + "FECHA_INGRESO = :FECHA_INGRESO, FECHA_ENVIO = :FECHA_ENVIO " + "WHERE ID_PEDIDO = :ID_PEDIDO";
+        //        string respueta = this.AUD(sql, 1);
 
-        private void btnTerminarVenta_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                String sql = "DELETE FROM PEDIDO " + "WHERE ID_PEDIDO = :ID_PEDIDO";
-                string respuesta = this.AUD(sql, 2);
-                this.limpiar();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        //        if (respueta == "Venta modificado!")
+        //        {
+        //            ADMDetallePedido admi = new ADMDetallePedido();
+        //            this.Close();
+        //            admi.txtidventa.Text = txtidventa.Text;
+        //            admi.ShowDialog();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
+
+        //private void btnTerminarVenta_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        String sql = "DELETE FROM PEDIDO " + "WHERE ID_PEDIDO = :ID_PEDIDO";
+        //        string respuesta = this.AUD(sql, 2);
+        //        this.limpiar();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
 
 
         private void btnSalirGestionVenta_Click(object sender, RoutedEventArgs e)

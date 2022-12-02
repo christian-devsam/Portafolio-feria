@@ -10,7 +10,7 @@
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen"
                       Background="Transparent" AllowsTransparency="True" 
-                      MouseDown="Window_MouseDown" WindowStyle="None" 
+                      MouseDown="Window_MouseDown" WindowStyle="None" Icon="/imagenes/LogoFeriaVirtual.png"
         
         
         >

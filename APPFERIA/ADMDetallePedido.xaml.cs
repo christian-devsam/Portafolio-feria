@@ -70,24 +70,24 @@ namespace interfazGrafica
             switch (state)
             {
                 case 0:
-                    msg = "Detalle venta agregado!";
-                    msg += "";
+                    msg = "Producto agregado!";
+                    
                     cmd.Parameters.Add("ID_PEDIDO", OracleDbType.Int32, 6).Value = int.Parse(txtidventa.Text);
-                    cmd.Parameters.Add("ID_PRODUCTO", OracleDbType.Int32, 6).Value = cboProductos.SelectedValue.ToString();
+                    cmd.Parameters.Add("ID_PRODUCTO", OracleDbType.Int32, 6).Value = cboproductos.SelectedValue;
                     cmd.Parameters.Add("CANTIDAD", OracleDbType.Int32, 6).Value = int.Parse(txtcantidadProducto.Text);
 
                     break;
                 case 1:
-                    msg = "Detalle venta modificado!";
+                    msg = "Producto modificado!";
 
-                    cmd.Parameters.Add("ID_PRODUCTO", OracleDbType.Int32, 6).Value = cboProductos.SelectedValue.ToString();
+                    cmd.Parameters.Add("ID_PRODUCTO", OracleDbType.Int32, 6).Value = cboproductos.SelectedValue;
                     cmd.Parameters.Add("CANTIDAD", OracleDbType.Int32, 6).Value = int.Parse(txtcantidadProducto.Text);
                     cmd.Parameters.Add("ID_PEDIDO", OracleDbType.Int32, 6).Value = int.Parse(txtidventa.Text);
 
                     break;
                 case 2:
-                    msg = "Detalle venta eliminado!";
-                    cmd.Parameters.Add("ID_PRODUCTO", OracleDbType.Int32, 6).Value = cboProductos.SelectedValue.ToString();
+                    msg = "Pedido cancelado!";
+                    cmd.Parameters.Add("ID_PEDIDO", OracleDbType.Int32, 6).Value = int.Parse(txtidventa.Text);
 
                     break;
             }
@@ -107,14 +107,38 @@ namespace interfazGrafica
                 return ex.Message.ToString();
             }
         }
+        private void btnTerminarVenta_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                String sql = "DELETE FROM DETALLE_PEDIDO " + "WHERE ID_PEDIDO = :ID_PEDIDO  ";
+                String sql1 = "DELETE FROM PEDIDO " + "WHERE ID_PEDIDO = :ID_PEDIDO";
+                string respuesta = this.AUD(sql, 2);
+                string respuesta1 = this.AUD(sql1, 2);
+                if (respuesta == "Pedido cancelado!" && respuesta1 == "Pedido cancelado!")
+                {
+                    VisualizarVentas verve = new VisualizarVentas();
+                    this.Close();
+                    verve.ShowDialog();
+                }
+                this.limpiar();
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void BtnAgregarVenta_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 String sql = "INSERT INTO DETALLE_PEDIDO (ID_PEDIDO,ID_PRODUCTO, CANTIDAD)" + "VALUES(:ID_PEDIDO, :ID_PRODUCTO, :CANTIDAD )";
                 string respuesta = this.AUD(sql, 0);
-
-                
+                this.limpiar();
+                this.listar();
 
             }
             catch (Exception ex)
@@ -126,46 +150,24 @@ namespace interfazGrafica
         {
             try
             {
-                String sql = "UPDATE DETALLE_PEDIDO SET ID_PRODUCTO = :ID_PRODUCTO," + "CANTIDAD = :CANTIDAD " + "WHERE ID_PEDIDO = :ID_PEDIDO";
+                String sql = "UPDATE DETALLE_PEDIDO SET ID_PRODUCTO = :ID_PRODUCTO, CANTIDAD = :CANTIDAD " + "WHERE ID_PEDIDO = :ID_PEDIDO";
                 string respueta = this.AUD(sql, 1);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-        private void btnTerminarVenta_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                String sql = "DELETE FROM DETALLE_PEDIDO " + "WHERE ID_PRODUCTO = :ID_PRODUCTO";
-                string respuesta = this.AUD(sql, 2);
                 this.limpiar();
+                this.listar();
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+        
 
-        private void cboProductos_loaded(object sender, RoutedEventArgs e)
-        {
-            OracleCommand cmd1 = new OracleCommand("select distinct(rp.id_producto), nombre_producto from producto p join registro_producto rp on p.id_producto= rp.id_producto", con);
-
-            OracleDataReader re = cmd1.ExecuteReader();
-
-            DataTable dt = new DataTable();
-            dt.Load(re);
-            var data = (dt as System.ComponentModel.IListSource).GetList();
-
-            cboProductos.ItemsSource = data;
-            cboProductos.DisplayMemberPath = dt.Columns["NOMBRE_PRODUCTO"].ToString();
-            cboProductos.SelectedValuePath = dt.Columns["ID_PRODUCTO"].ToString();
-        }
+       
         private void limpiar()
         {
-            
-            cboProductos.Text = "";
+
+            cboproductos.Text = "";
             txtcantidadProducto.Text = "";
             
         }
@@ -183,9 +185,59 @@ namespace interfazGrafica
             vis.ShowDialog();
         }
 
-        
 
-        
+        private void cboproductos_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            OracleCommand cmds = new OracleCommand("select distinct(rp.id_producto), p.nombre_producto from producto p inner join registro_producto rp on p.id_producto= rp.id_producto", con);
+
+            OracleDataReader ru = cmds.ExecuteReader();
+
+            DataTable dete = new DataTable();
+            dete.Load(ru);
+            var data = (dete as System.ComponentModel.IListSource).GetList();
+
+            cboproductos.ItemsSource = data;
+            cboproductos.DisplayMemberPath = dete.Columns["NOMBRE_PRODUCTO"].ToString();
+            cboproductos.SelectedValuePath = dete.Columns["ID_PRODUCTO"].ToString();
+
+        }
+
+        public void listar()
+        {
+            OracleCommand cmds = con.CreateCommand();
+
+            cmds.CommandText = "SELECT d.id_pedido, p.nombre_producto, d.cantidad, d.valor FROM DETALLE_PEDIDO D INNER JOIN PRODUCTO P ON P.ID_PRODUCTO = D.ID_PRODUCTO where d.id_pedido = " + "'" + txtidventa.Text + "'";
+            cmds.CommandType = CommandType.Text;
+            OracleDataReader rrd = cmds.ExecuteReader();
+            DataTable vd = new DataTable();
+            vd.Load(rrd);
+            dataGrid.ItemsSource = vd.DefaultView;
+            rrd.Close();
+        }
+
+
+        private void dataGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.listar();
+        }
+
+        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid dg = sender as DataGrid;
+            DataRowView dr = dg.SelectedItem as DataRowView;
+            if (dr != null)
+            {
+                txtidventa.Text = dr["ID_PEDIDO"].ToString();
+                cboproductos.Text = dr["nombre_producto"].ToString();
+                txtcantidadProducto.Text = dr["CANTIDAD"].ToString();
+
+
+
+
+
+            }
+        }
 
         
     }

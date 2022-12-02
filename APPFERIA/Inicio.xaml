@@ -10,7 +10,7 @@
         Title="FERIA VIRTUAL" Height="550" Width="800" 
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Background="Transparent" AllowsTransparency="True"
-        WindowStyle="None" MouseDown="Window_MouseDown"  >
+        WindowStyle="None" MouseDown="Window_MouseDown" Icon="/imagenes/LogoFeriaVirtual.png"  >
 
     <Border CornerRadius="12">
         <Border.Background>

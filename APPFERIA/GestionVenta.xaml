@@ -6,11 +6,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:interfazGrafica"
         mc:Ignorable="d"
-      Title="FERIA VIRTUAL    -   GESTION VENTA" Height="302.375" Width="614.938" 
+      Title="FERIA VIRTUAL    -   GESTION VENTA" Height="428.375" Width="926.538" 
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen"
                       Background="Transparent" AllowsTransparency="True" 
-                      MouseDown="Window_MouseDown" WindowStyle="None" >
+                      MouseDown="Window_MouseDown" WindowStyle="None" Icon="/imagenes/LogoFeriaVirtual.png" >
 
     <Border CornerRadius="12" Margin="0,0,10,10">
         <Border.Background>
@@ -60,7 +60,7 @@
                             FontSize="16"
                             FontFamily="Montserrat"
                             Cursor="Hand"
-                            Click="btnMinimize_Click" Margin="543,0,0,0" Grid.ColumnSpan="2">
+                            Click="btnMinimize_Click" Grid.Column="1">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="#28AEED"/>
@@ -116,25 +116,22 @@
 
 
 
-                <Button x:Name="btnCrear" Content="Crear" HorizontalAlignment="Left" Margin="475,211,0,0" VerticalAlignment="Top" Width="96" Background="#21645d" BorderBrush="White" Click="BtnAgregarVenta_Click" Height="34" FontSize="15" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
-                <Button x:Name="btnActualizar" Content="Actualizar" HorizontalAlignment="Left" Margin="359,211,0,0" VerticalAlignment="Top" Width="111" BorderBrush="White" Background="#21645d" Click="btnActualizarVenta_Click" Height="34" FontSize="15" BorderThickness="2" FontWeight="Bold" Foreground="White" Grid.Row="1"/>
-                <Button x:Name="btnTerminar" Content="Eliminar" HorizontalAlignment="Left" Margin="253,211,0,0" VerticalAlignment="Top" Width="101" Background="#21645d" BorderBrush="White" Click="btnTerminarVenta_Click" Height="34" FontSize="15" BorderThickness="2" FontWeight="Bold" Foreground="White" Grid.Row="1"/>
-                <Button x:Name="btnSalir" Content="VOLVER" HorizontalAlignment="Left" Margin="10,211,0,0" VerticalAlignment="Top" Width="92" BorderBrush="White" Background="White" Click="btnSalirGestionVenta_Click" Height="34" FontSize="15" Grid.Row="1" RenderTransformOrigin="0.5,0.625"/>
+                <Button x:Name="btnCrear" Content="Crear" HorizontalAlignment="Left" Margin="722,294,0,0" VerticalAlignment="Top" Width="108" Background="#21645d" BorderBrush="White" Click="BtnAgregarVenta_Click" Height="49" FontSize="18" BorderThickness="2" Foreground="White" FontWeight="Bold" Grid.Row="1"/>
+                <Button x:Name="btnSalir" Content="VOLVER" HorizontalAlignment="Left" Margin="81,304,0,0" VerticalAlignment="Top" Width="105" BorderBrush="White" Background="White" Click="btnSalirGestionVenta_Click" Height="39" FontSize="18" Grid.Row="1" RenderTransformOrigin="0.5,0.625"/>
 
 
-                <Image HorizontalAlignment="Left" Height="224" Margin="-23,10,0,0" VerticalAlignment="Top" Width="250" Source="imagenes/LogoFeriaVirtual.png" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2"/>
-                <Label x:Name="label12" Content="Fecha Envio :" HorizontalAlignment="Left" Foreground="Black" FontWeight="Bold" Margin="182,88,0,0" VerticalAlignment="Top" FontSize="18" Grid.Row="1"/>
+                <Image HorizontalAlignment="Left" Height="302" Margin="-23,10,0,0" VerticalAlignment="Top" Width="365" Source="imagenes/LogoFeriaVirtual.png" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2"/>
+                <Label x:Name="label12" Content="Fecha Envio :" HorizontalAlignment="Left" Foreground="Black" FontWeight="Bold" Margin="303,139,0,0" VerticalAlignment="Top" FontSize="20" Grid.Row="1"/>
 
 
-                <Label Content="ID venta :" HorizontalAlignment="Left" Foreground="Black" FontWeight="Bold" Margin="182,12,0,0" VerticalAlignment="Top" FontSize="18" RenderTransformOrigin="0.811,-0.223" Height="34" Grid.Row="1" Width="95"/>
-                <TextBox x:Name="txtidventa" HorizontalAlignment="Left" Controls:TextBoxHelper.Watermark="Ingrese id venta" Height="34" Margin="332,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" BorderBrush="#FF1E1E28" FontSize="14" SelectionBrush="#FF33A133" Grid.Row="1" Loaded="txtidventa_Loaded" />
+                <TextBox x:Name="txtidventa" HorizontalAlignment="Left" Height="35" Margin="459,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" BorderBrush="#FF1E1E28" FontSize="14" SelectionBrush="#FF33A133" Grid.Row="1" Loaded="txtidventa_Loaded" IsEnabled="False" />
 
 
-                <Button x:Name="btnLimpiar" Content="Limpiar" HorizontalAlignment="Left" Margin="458,127,0,0" VerticalAlignment="Top" Width="72" Click="btnLimpiar_Click" Height="34" Background="#21645d" FontSize="13" BorderBrush="#FF1E1E28" Foreground="White" Grid.Row="1" RenderTransformOrigin="0.5,0.5"/>
-                <DatePicker x:Name="DpickerFinal" HorizontalAlignment="Left" Margin="332,91,0,0" VerticalAlignment="Top" FontSize="13" Width="198" BorderBrush="#FF1E1E28" Height="31" RenderTransformOrigin="0.546,-2.038" Grid.Row="1"/>
-                <Label Content="Nombre Cliente :" HorizontalAlignment="Left" Margin="182,46,0,0" Foreground="Black" FontWeight="Bold" VerticalAlignment="Top" FontSize="18" Height="37" Grid.Row="1"/>
+                <Button x:Name="btnLimpiar" Content="Limpiar" HorizontalAlignment="Left" Margin="744,187,0,0" VerticalAlignment="Top" Width="86" Click="btnLimpiar_Click" Height="38" Background="#21645d" FontSize="13" BorderBrush="#FF1E1E28" Foreground="White" Grid.Row="1" RenderTransformOrigin="0.5,0.5"/>
+                <DatePicker x:Name="DpickerFinal" HorizontalAlignment="Left" Margin="459,139,0,0" VerticalAlignment="Top" FontSize="13" Width="371" BorderBrush="#FF1E1E28" Height="34" RenderTransformOrigin="0.546,-2.038" Grid.Row="1"/>
+                <Label Content="Nombre Cliente :" HorizontalAlignment="Left" Margin="266,86,0,0" Foreground="Black" FontWeight="Bold" VerticalAlignment="Top" FontSize="20" Height="37" Grid.Row="1"/>
 
-                <ComboBox x:Name="cboNombreCliente" HorizontalAlignment="Left" VerticalAlignment="Top" Controls:TextBoxHelper.Watermark="Seleccione Nombre del Cliente" Width="198" Margin="332,49,0,0" Grid.Row="1" BorderBrush="#FF1E1E28" Loaded="cboNombreCliente_Loaded" Height="36" />
+                <ComboBox x:Name="cboNombreCliente" HorizontalAlignment="Left" VerticalAlignment="Top" Controls:TextBoxHelper.Watermark="Seleccione Nombre del Cliente" Width="371" Margin="459,88,0,0" Grid.Row="1" BorderBrush="#FF1E1E28" Loaded="cboNombreCliente_Loaded" Height="35" />
 
 
 
