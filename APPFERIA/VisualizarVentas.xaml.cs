@@ -65,6 +65,10 @@ namespace interfazGrafica
         {
             dataGrid.Columns.Clear();
         }
+        private void limpiarid()
+        {
+            txtidventa.Text = "";
+        }
         public void llenarProductos(int idventa)
         {
             OracleCommand cmd = con.CreateCommand();
@@ -89,22 +93,7 @@ namespace interfazGrafica
 
         }
 
-        private void txtidventa_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                int entero = int.Parse(txtidventa.Text);
-                if (txtidventa.Text.Length != 0)
-                {
-                    llenarProductos(int.Parse(txtidventa.Text));
-                }
-            }
-            catch (Exception ex)
-            {
-
-                limpiar();
-            }
-        }
+        
         public void listarPedido()
         {
             OracleCommand cmd1 = con.CreateCommand();
@@ -157,12 +146,30 @@ namespace interfazGrafica
 
         private void btnEliminar_Click(object sender, RoutedEventArgs e)
         {
-            if (txtidventa.Text != null)
+            if (txtidventa.SelectedValue != null)
             {
-                GestionVenta ven = new GestionVenta();
+                String del = "DELETE FROM DETALLE_PEDIDO WHERE ID_PEDIDO = " + "'" + txtidventa.SelectedValue.ToString() + "'";
+                String delet = "DELETE FROM PEDIDO WHERE ID_PEDIDO = " + "'" + txtidventa.SelectedValue.ToString() + "'";
+
+                OracleCommand cmd2 = new OracleCommand(del, con);
+                OracleCommand cmd1 = new OracleCommand(delet, con);
+
+                
+                cmd2.ExecuteNonQuery();
+                cmd1.ExecuteNonQuery();
+                
+                MessageBox.Show("pedido numero " + txtidventa.SelectedValue.ToString() + " Eliminado !");
+
+                this.limpiarid();
+                MainWindow m = new MainWindow();
                 this.Close();
-                ven.txtidventa.Text = txtidventa.Text;
-                ven.ShowDialog();
+                m.ShowDialog();
+
+                
+                //GestionVenta ven = new GestionVenta();
+                //this.Close();
+                //ven.txtidventa.Text = txtidventa.SelectedValue.ToString();
+                //ven.ShowDialog();
             }
             else
             {
@@ -172,7 +179,7 @@ namespace interfazGrafica
 
         private void btnModificar_Click(object sender, RoutedEventArgs e)
         {
-            if (txtidventa.Text != null)
+            if (txtidventa.SelectedValue != null)
             {
                 ADMDetallePedido admde = new ADMDetallePedido();
                 this.Close();
@@ -185,6 +192,35 @@ namespace interfazGrafica
             }
         }
 
-        
+        private void txtidventa_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                //int entero = int.Parse(txtidventa.SelectedValue.ToString());
+                if (txtidventa.Text.Length != 0)
+                {
+                    llenarProductos(int.Parse(txtidventa.SelectedValue.ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+
+                limpiar();
+            }
+        }
+
+        private void txtidventa_Loaded(object sender, RoutedEventArgs e)
+        {
+            OracleCommand cmd1 = new OracleCommand("SELECT ID_PEDIDO FROM PEDIDO", con);
+
+            OracleDataReader re = cmd1.ExecuteReader();
+            while (re.Read())
+            {
+
+                txtidventa.Items.Add(re["ID_PEDIDO"].ToString());
+                
+
+            }
+        }
     }
 }

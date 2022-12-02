@@ -113,23 +113,20 @@
                         </Button.Template>
                     </Button>
                 </Grid>
-
-                <Label Content="ID
-                       " HorizontalAlignment="Left" Margin="38,32,0,0" VerticalAlignment="Top" FontSize="15" Width="54" RenderTransformOrigin="-0.704,0.253" Grid.Row="1" Height="45"/>
-                <Label Content="Nombre" HorizontalAlignment="Left" Margin="-1,73,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
-                <Label Content="Telefono" HorizontalAlignment="Left" Margin="-2,139,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
-                <Label Content="Licencia&#xD;&#xA; Conductor" HorizontalAlignment="Left" Margin="-2,172,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1" Width="110" Height="60"/>
+                <Label Content="Nombre" HorizontalAlignment="Left" Margin="-1,40,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
+                <Label Content="Telefono" HorizontalAlignment="Left" Margin="-1,117,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
+                <Label Content="Licencia&#xD;&#xA; Conductor" HorizontalAlignment="Left" Margin="-1,145,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1" Width="110" Height="60"/>
                 <Label Content="Correo" HorizontalAlignment="Left" Margin="288,117,0,0" VerticalAlignment="Top" FontSize="15" Grid.Row="1"/>
-                <Label Content="Apellido" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,107,0,0" FontSize="15" Grid.Row="1"/>
+                <Label Content="Apellido" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,77,0,0" FontSize="15" Grid.Row="1"/>
 
-                <TextBox x:Name="txtidtransportista" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese ID Cliente" Height="29" Margin="79,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="115" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1" Loaded="txtidtransportista_Loaded" />
+                <TextBox x:Name="txtidtransportista" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese ID Cliente" Height="29" Margin="79,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="115" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1" Loaded="txtidtransportista_Loaded" Visibility="Hidden" />
 
-                <TextBox x:Name="txtApellidoTransportista" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese apellidos" Height="29" Margin="80,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <TextBox x:Name="txtNombreTransportista" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese nombres" Height="30" Margin="81,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtApellidoTransportista" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese apellidos" Height="29" Margin="82,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtNombreTransportista" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese nombres" Height="30" Margin="81,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
                 <TextBox x:Name="txtEmailTransportista" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese correo electrónico" Height="34" Margin="356,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <ComboBox x:Name="cboLicencia" HorizontalAlignment="Left" VerticalAlignment="Top" Width="209" Controls:TextBoxHelper.Watermark="Seleccionar Licencia" BorderBrush="Black" Margin="80,182,0,0" Grid.Row="1" Height="32" Loaded="cboLicencia_Loaded"/>
+                <ComboBox x:Name="cboLicencia" HorizontalAlignment="Left" VerticalAlignment="Top" Width="209" Controls:TextBoxHelper.Watermark="Seleccionar Licencia" BorderBrush="Black" Margin="82,152,0,0" Grid.Row="1" Height="32" Loaded="cboLicencia_Loaded"/>
 
-                <TextBox x:Name="txtTelefonotransportista" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese teléfono" Height="28" Margin="80,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
+                <TextBox x:Name="txtTelefonotransportista" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese teléfono" Height="28" Margin="82,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
                 <TextBox x:Name="txtUsuario" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Usuario" Height="26" Margin="382,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
                 <TextBox x:Name="txtContrasenia" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Contraseña" Height="27" Margin="382,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
                 <Label Content="Password&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="288,77,0,0" FontSize="15" Grid.Row="1" Width="85"/>

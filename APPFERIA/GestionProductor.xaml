@@ -137,16 +137,15 @@
                 <Label Content="Apellidos" HorizontalAlignment="Left" Margin="1,82,0,0" VerticalAlignment="Top" FontSize="20" Height="36" Grid.Row="1"/>
                 <Label Content="Direccion" HorizontalAlignment="Left" Margin="0,119,0,0" VerticalAlignment="Top" FontSize="20" Height="36" Grid.Row="1"/>
                 <Label Content="Telefono" HorizontalAlignment="Left" Margin="0,162,0,0" VerticalAlignment="Top" FontSize="20" Height="34" Grid.Row="1"/>
-                <Label Content="Correo Electronico" HorizontalAlignment="Left" Margin="0,237,0,0" VerticalAlignment="Top" FontSize="20" Height="34" Grid.Row="1"/>
-                <Label Content="Region" HorizontalAlignment="Left" Margin="0,201,0,0" VerticalAlignment="Top" FontSize="20" Height="34" Grid.Row="1"/>
+                <Label Content="Correo Electronico" HorizontalAlignment="Left" Margin="1,210,0,0" VerticalAlignment="Top" FontSize="20" Height="34" Grid.Row="1"/>
+
 
                 <TextBox x:Name="txtRutProductor" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese RUT" Height="34" Margin="115,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
                 <TextBox x:Name="txtApellidos" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese apellidos" Height="34" Margin="115,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
                 <TextBox x:Name="txtNombreProductor" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese nombres" Height="34" Margin="115,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese correo electrónico" Height="34" Margin="182,237,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261" BorderBrush="#FF1E1E28" FontSize="14" RenderTransformOrigin="0.549,0.559" Grid.Row="1"/>
+                <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese correo electrónico" Height="34" Margin="182,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261" BorderBrush="#FF1E1E28" FontSize="14" RenderTransformOrigin="0.549,0.559" Grid.Row="1"/>
                 <TextBox x:Name="txtDireccion" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese dirección" Height="34" Margin="115,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
                 <TextBox x:Name="txtTelefono" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese teléfono" Height="34" Margin="115,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" BorderBrush="#FF1E1E28" FontSize="14" Grid.Row="1"/>
-                <ComboBox x:Name="cboregion" HorizontalAlignment="Left" Margin="115,202,0,0" Grid.Row="1" VerticalAlignment="Top" Controls:TextBoxHelper.Watermark="Ingrese Region" Width="328" BorderBrush="Black" Loaded="cboregion_Loaded" Height="31"/>
 
                 <Separator HorizontalAlignment="Left" Height="19" Margin="469,209,0,0" VerticalAlignment="Top" Width="398" RenderTransformOrigin="0.5,0.5">
                     <Separator.RenderTransform>
@@ -158,7 +157,7 @@
                         </TransformGroup>
                     </Separator.RenderTransform>
                 </Separator>
-                <DataGrid x:Name="dgvListado" HorizontalAlignment="Left" Height="243" VerticalAlignment="Top" Width="372" Margin="459,137,0,0" RenderTransformOrigin="0.5,0.5" SelectionChanged="dgvListado_SelectionChanged" Loaded="dgvListado_Loaded" Grid.Row="1">
+                <DataGrid x:Name="dgvListado" HorizontalAlignment="Left" Height="243" VerticalAlignment="Top" Width="387" Margin="459,137,0,0" RenderTransformOrigin="0.5,0.5" SelectionChanged="dgvListado_SelectionChanged" Loaded="dgvListado_Loaded" Grid.Row="1">
                     <DataGrid.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -168,6 +167,7 @@
                         </TransformGroup>
                     </DataGrid.RenderTransform>
                 </DataGrid>
+                <TextBox x:Name="txtidpro" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="59" Margin="448,10,0,0" Grid.Row="1" Loaded="txtidpro_Loaded" Visibility="Hidden"/>
 
 
             </Grid>
